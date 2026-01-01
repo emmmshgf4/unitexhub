@@ -273,7 +273,7 @@ toggle.onclick = () => {
 const imageBase = '/hub/api/post/uploads/';
 
 // Fetch posts
-fetch('https://unitexhub.ct.ws/hub/api/post/get_posts.php?i=1')
+fetch('https://api.unitexhub.name.ng/hub/api/post/get_posts.php')
 .then(res => {
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return res.json();
@@ -515,6 +515,7 @@ window.addEventListener('scroll', () => {
 
 </body>
 </html>
+
 
 
 
