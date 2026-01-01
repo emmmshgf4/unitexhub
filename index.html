@@ -258,7 +258,7 @@ body.light-mode .counter-box {
    <!-- Modern Page Loader -->
 <div id="pageLoader">
   <div class="loader-card">
-    <img src="http://localhost/hub/frontend/assets/unitex.png" alt="UNITEX HUB Logo" />
+    <img src="/frontend/assets/unitex.png" alt="UNITEX HUB Logo" />
     <div class="dots">
       <span></span><span></span><span></span>
     </div>
@@ -347,10 +347,18 @@ body.dark .dots span {
 <script>
 window.addEventListener("load", () => {
   const loader = document.getElementById("pageLoader");
-  loader.style.opacity = "0";
-  setTimeout(() => loader.remove(), 400);
+
+  // Keep loader visible for 4 seconds
+  setTimeout(() => {
+    loader.style.opacity = "0";
+
+    setTimeout(() => {
+      loader.remove();
+    }, 400); // match fade-out duration
+  }, 4000); // 4 seconds delay
 });
 </script>
+
 
 
 <!-- Header section -->
@@ -1178,6 +1186,7 @@ body.light-mode .affiliate-subtitle {
 
 </body>
 </html>
+
 
 
 
