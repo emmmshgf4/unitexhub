@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNITEX HUB - Practice Exam</title>
+
+    <meta name="description" content="UNITEX HUB is a digital learning and innovation platform providing university CBT exam preparation tools and resources for learners in Nigeria. It empowers students and creators with the support, tools, and guidance they need to excel in exams such as JAMB and other university CBT assessments.">
+<meta name="keywords" content="UNITEX HUB offers powerful academic performance tools from University CBT, including CGPA and GPA calculators, semester GPA trackers, and comprehensive CGPA analysis. Designed for students, these tools help you monitor and optimize your academic progress throughout university. Developed by Emmanuel Etim, UNITEX HUB empowers learners with practical education tools to track and improve their GPA, plan their semesters, and achieve academic success.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="UNITEX HUB">
+
+<!--FAVICON-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost/hub/frontend/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost/hub/frontend/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost/hub/frontend/favicon_io/favicon-16x16.png">
+<link rel="manifest" href="http://localhost/hub/frontend/favicon_io/site.webmanifest">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+<meta property="og:image" content="http://localhost/hub/frontend/assets/unitex.png">
+
+<!-- Twitter (X) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="">
+<meta name="twitter:image" content="http://localhost/hub/frontend/assets/im.png">
+   <meta name="msvalidate.01" content="7CFE9C31DF8FDE2D5E752F310DC6AA54" />
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+    /* CBT exam styles adapted for practice_exam.html */
+    html, body { margin:0; padding:0; font-family:"Segoe UI", sans-serif; background:var(--bg-main, #f1f4f9); }
+    /* Plain full-bleed page: remove card/container styling so the exam appears on a plain page */
+    .cbt-wrapper { display:block; min-height:100vh; background:transparent; max-width:none; margin:0; border-radius:0; box-shadow:none; overflow:visible; }
+    header { background:var(--secondary, #004aad); color:white; padding:12px 16px; font-size:18px; display:flex; justify-content:space-between; align-items:center; }
+    .timer { font-size:14px; background:rgba(255,255,255,0.12); padding:6px 10px; border-radius:18px; }
+    .question-area { overflow-y:auto; padding:18px 12px; display:block; width:100%; }
+    .question-box { max-width:none; width:100%; margin:0; font-size:16px; }
+    .question-box .question-item { display:none; }
+    .question-box .question-item.active { display:block; }
+    .question-box h3 { margin-bottom:15px; }
+    .options label { display:block; margin:12px 0; font-size:16px; cursor:pointer; }
+    /* Plain options: no background or border so options are clean and minimal */
+    .option-label { display:flex; align-items:center; gap:12px; padding:8px 6px; border:none; border-radius:0; background:transparent; transition:none; }
+    .option-label:hover { background: transparent; }
+    .option-label input[type="radio"] { margin:0 6px 0 0; transform:scale(1.05); }
+    .option-text { flex:1; }
+    .option-letter { font-weight:700; width:28px; display:inline-block; color:var(--text-main); }
+    input[type="radio"] { margin-right:10px; transform:scale(1.1); }
+
+    .controls { display:flex; justify-content:flex-start; gap:6px; padding:10px 8px; border-top:1px solid rgba(0,0,0,0.06); flex-wrap:wrap; }
+    .controls button { padding:6px 10px; font-size:13px; border-radius:4px; border:none; cursor:pointer; transition:.12s ease; }
+    .prev-btn, .next-btn, .submit-btn { padding:6px 10px; font-size:13px; }
+    .prev-btn, .next-btn { background:var(--primary); color:#fff; }
+    .submit-btn { background:#198754; color:#fff; }
+
+    .question-palette { display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-start; margin-top:12px; padding-left:8px; }
+    .question-palette .q-btn { width:30px; height:30px; border-radius:50%; border:2px solid var(--primary); background:transparent; color:var(--primary); font-weight:bold; cursor:pointer; font-size:12px; }
+    .question-palette .q-btn.active { border-color:var(--secondary); transform:scale(1.08); }
+    .question-palette .q-btn.answered { background:#198754; color:#fff; border-color:#198754; }
+    .question-palette .q-btn.skipped { background:#dc3545; color:#fff; border-color:#dc3545; }
+
+    /* Mobile tweaks */
+    @media (max-width:768px){ header { padding:12px } .question-box { padding:0 8px; } .question-palette { padding-left:4px; } }
+
+    /* Disable any page watermark so layout remains plain */
+    body::before { display:none; }
+
+    /* Prevent text selection in question area */
+    .question-box, .question-box * { user-select:none; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; }
+    </style>
+</head>
+<body>
+
+<script>
+// Early guard: ensure user is logged in before page loads; disable right-click and copying site-wide on exam page
+(function(){
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) { window.location.href = 'index.html'; return; }
+        // Disable right-click across the page
+        document.addEventListener('contextmenu', function(ev){ ev.preventDefault(); });
+        // Disable copying
+        document.addEventListener('copy', function(ev){ ev.clipboardData.setData('text/plain', ''); ev.preventDefault(); });
+    } catch (e) { /* ignore errors */ }
+})();
+</script>
+
+<div class="cbt-wrapper">
+    <header>
+        <div class="exam-title">Practice Exam</div>
+        <div class="timer" id="timer">Loading...</div>
+    </header>
+
+    <div class="question-area">
+        <form id="practiceForm">
+            <input type="hidden" name="session_id" id="sessionId" value="">
+            <div id="questionsContainer" class="question-box">
+                <!-- questions injected by js -->
+            </div>
+
+            <!-- Question Palette -->
+            <div class="question-palette" id="questionPalette"></div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <button type="button" class="prev-btn" id="prevBtn" style="display:none;">Previous</button>
+                <button type="button" class="next-btn" id="nextBtn" style="display:none;">Next</button>
+                <button type="submit" class="submit-btn" id="submitBtn" style="visibility:hidden;">Submit Exam</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Result Section is on a separate page -->
+
+<script src="js/config.js"></script>
+<script src="js/practice.exam.js"></script>
+<script>
+// UI: pagination, palette, copy protection, visibility handling
+document.addEventListener('questions:rendered', (e) => {
+    const questions = Array.from(document.querySelectorAll('.question-item'));
+    const palette = document.getElementById('questionPalette');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const form = document.getElementById('practiceForm');
+    let current = 0;
+
+    // setup session id if provided by practice.exam.js via hidden input
+    // (practice.exam.js stores session in localStorage; keep hidden for compatibility)
+
+    // Build palette buttons
+    palette.innerHTML = '';
+    questions.forEach((q, idx) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'q-btn';
+        b.textContent = idx + 1;
+        b.dataset.index = idx;
+        b.addEventListener('click', () => { showQuestion(idx); });
+        palette.appendChild(b);
+    });
+
+    const qButtons = Array.from(palette.querySelectorAll('.q-btn'));
+
+    function updatePalette(){
+        qButtons.forEach((btn, idx) => {
+            btn.classList.remove('active','answered','skipped');
+            if(idx === current) btn.classList.add('active');
+            const qDiv = questions[idx];
+            const checked = qDiv.querySelector('input[type="radio"]:checked');
+            if(checked) btn.classList.add('answered'); else btn.classList.add('skipped');
+        });
+    }
+
+    questions.forEach(qDiv => {
+        const radios = qDiv.querySelectorAll('input[type="radio"]');
+        radios.forEach(r => r.addEventListener('change', updatePalette));
+    });
+
+    function showQuestion(i){
+        questions.forEach((q, idx) => q.classList.toggle('active', idx === i));
+        current = i;
+        prevBtn.style.display = i === 0 ? 'none' : 'inline-block';
+        nextBtn.style.display = i === questions.length - 1 ? 'none' : 'inline-block';
+        submitBtn.style.visibility = i === questions.length - 1 ? 'visible' : 'hidden';
+        updatePalette();
+        // ensure focus to improve mobile accessibility
+        const h3 = questions[i].querySelector('h3'); if(h3) h3.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+
+    prevBtn.addEventListener('click', () => { if(current > 0) showQuestion(current - 1); });
+    nextBtn.addEventListener('click', () => { if(current < questions.length - 1) showQuestion(current + 1); });
+
+    // visibility change handler: auto-submit when tab hidden
+    // When the page becomes hidden, submit silently (no alert)
+    document.addEventListener('visibilitychange', function(){ if(document.hidden){ form.requestSubmit(); }});
+
+    // prevent right-click and copying inside question box
+    document.addEventListener('contextmenu', function(ev){ if(ev.target.closest('.question-box')) ev.preventDefault(); });
+    document.addEventListener('copy', function(ev){ if(ev.target.closest('.question-box')){ ev.clipboardData.setData('text/plain', ''); ev.preventDefault(); alert('Copying questions is disabled!'); }});
+
+    // initial display
+    if (questions.length > 0) showQuestion(0);
+});
+</script>
+</body>
+</html>

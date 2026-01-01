@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>UNITEX HUB - CGPA Calculator | Academic Analytics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="UNITEX HUB CGPA Calculator helps students calculate and track their GPA and CGPA accurately, providing insights and advice to improve academic performance.">
+<meta name="keywords" content="CGPA calculator, GPA calculator, academic performance, UNITEX HUB, student GPA tracker, semester GPA, CGPA analysis, Emmanuel Emmanuel Etim, education tools">
+<meta name="robots" content="index, follow">
+<meta name="author" content="UNITEX HUB">
+
+<!--FAVICON-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost/hub/frontend/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost/hub/frontend/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost/hub/frontend/favicon_io/favicon-16x16.png">
+<link rel="manifest" href="http://localhost/hub/frontend/favicon_io/site.webmanifest">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+<meta property="og:image" content="http://localhost/hub/frontend/assets/unitex.png">
+
+<!-- Twitter (X) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="">
+<meta name="twitter:image" content="http://localhost/hub/frontend/assets/im.png">
+   <meta name="msvalidate.01" content="7CFE9C31DF8FDE2D5E752F310DC6AA54" />
+
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+body{
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+    min-height: 100vh;
+}
+
+.app-card{
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    animation: fadeUp .6s ease;
+}
+
+.hero h1{
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.hero p{
+    color: #6b7280;
+}
+
+h4{
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.course-row{
+    animation: slideIn .4s ease;
+}
+
+.btn{
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all .3s ease;
+}
+
+.btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
+
+.badge-gpa{
+    font-size: 1rem;
+    background: #eef2ff;
+    color: #3730a3;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+#cgpaOverlay .result-card{
+    background: #fff;
+    color: #0f172a;
+    border-radius: 18px;
+    animation: popIn .5s ease;
+    position: relative;
+}
+
+table{
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+@keyframes fadeUp{
+    from{opacity:0; transform: translateY(20px);}
+    to{opacity:1; transform: translateY(0);}
+}
+
+@keyframes slideIn{
+    from{opacity:0; transform: translateX(-15px);}
+    to{opacity:1; transform: translateX(0);}
+}
+
+@keyframes popIn{
+    0%{transform: scale(.9); opacity:0;}
+    100%{transform: scale(1); opacity:1;}
+}
+
+/* Header */
+.main-header{
+    background: linear-gradient(135deg, #0f172a, #020617);
+    padding: 14px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+
+.header-container{
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-dot{
+    width: 12px;
+    height: 12px;
+    background: #6366f1;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #6366f1;
+}
+
+.brand-text{
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+.nav-links{
+    display: flex;
+    gap: 22px;
+}
+
+.nav-links a{
+    color: #c7d2fe;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    position: relative;
+    transition: all .3s ease;
+}
+
+.nav-links a::after{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:-6px;
+    width:0;
+    height:2px;
+    background:#6366f1;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#fff;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+.logout{
+    color:#fca5a5 !important;
+}
+
+.menu-toggle{
+    display:none;
+    background:none;
+    border:none;
+    cursor:pointer;
+}
+
+.menu-toggle span{
+    display:block;
+    width:26px;
+    height:3px;
+    background:#fff;
+    margin:5px 0;
+    transition:.4s;
+    border-radius:3px;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px){
+    .menu-toggle{
+        display:block;
+    }
+
+    .nav-links{
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#020617;
+        flex-direction:column;
+        gap:0;
+        max-height:0;
+        overflow:hidden;
+        transition:max-height .4s ease;
+    }
+
+    .nav-links a{
+        padding:14px 20px;
+        border-top:1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-links.active{
+        max-height:300px;
+    }
+}
+
+/* ===== LOADING ANIMATION ===== */
+.loader-dots span{
+    display:inline-block;
+    width:8px;
+    height:8px;
+    margin:0 4px;
+    background:#6366f1;
+    border-radius:50%;
+    animation: bounce 1s infinite;
+}
+
+.loader-dots span:nth-child(2){
+    animation-delay:.2s;
+}
+.loader-dots span:nth-child(3){
+    animation-delay:.4s;
+}
+
+@keyframes bounce{
+    0%, 80%, 100%{transform: scale(0);}
+    40%{transform: scale(1);}
+}
+</style>
+</head>
+<body>
+
+<div id="page-loader">
+    <div class="loader-container">
+        <div class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="loader-text">Setting your tools ready...</div>
+    </div>
+</div>
+
+<style>
+#page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f4f6f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    overflow: hidden;
+    transition: opacity 0.5s ease;
+}
+
+body.dark-mode #page-loader { background: #1e1e2f; }
+
+body.no-scroll { overflow: hidden; }
+
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.loader {
+    display: flex;
+    gap: 10px;
+}
+
+.loader div {
+    width: 15px;
+    height: 15px;
+    background: #007bff;
+    border-radius: 50%;
+    animation: bounce 0.6s infinite alternate;
+}
+
+.loader div:nth-child(2) { animation-delay: 0.2s; }
+.loader div:nth-child(3) { animation-delay: 0.4s; }
+
+body.dark-mode .loader div { background: #ffa500; }
+
+@keyframes bounce {
+    0% { transform: translateY(0); opacity: 0.6; }
+    100% { transform: translateY(-15px); opacity: 1; }
+}
+
+.loader-text {
+    font-size: 1.1rem;
+    color: #555;
+    animation: fade 1.2s infinite;
+}
+
+body.dark-mode .loader-text { color: #eee; }
+
+@keyframes fade {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+@media (max-width: 500px) { .loader div { width: 12px; height: 12px; } }
+</style>
+
+<script>
+document.body.classList.add('no-scroll');
+
+window.addEventListener('load', () => {
+    const loader = document.getElementById('page-loader');
+    const loaderText = loader.querySelector('.loader-text');
+
+    const messages = [
+        "Setting your tools ready...",
+        "Checking if user can use these tools...",
+        "Initializing working environment...",
+        "Stay calm, finalising content..."
+    ];
+
+    let index = 0;
+
+    // Show each message for 4 seconds
+    const messageInterval = setInterval(() => {
+        index++;
+        if (index < messages.length) {
+            loaderText.textContent = messages[index];
+        } else {
+            clearInterval(messageInterval);
+        }
+    }, 4000);
+
+    // Hide loader after total duration (4s * number of messages)
+    setTimeout(() => {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+            loader.style.display = 'none';
+            document.body.classList.remove('no-scroll');
+        }, 500);
+    }, messages.length * 4000);
+});
+</script>
+
+
+<header class="main-header">
+    <div class="header-container">
+        <div class="brand">
+            <span class="logo-dot"></span>
+            <span class="brand-text">UNITEX HUB</span>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="cgpa_history.html">History</a>
+            <a href="/hub/api/logout.php" class="logout">Logout</a>
+        </nav>
+    </div>
+</header>
+
+<div class="container py-5">
+    <div class="app-card p-4 p-md-5">
+
+        <div class="hero text-center mb-5">
+            <h1>CGPA Calculator</h1>
+            <p>Analyze your academic performance, track GPA & CGPA, and receive smart insights.</p>
+        </div>
+
+        <!-- Semester 1 -->
+        <h4>Semester 1</h4>
+        <div id="sem1">
+            <div class="course-row row g-2 mb-2">
+                <div class="col-md-4">
+                    <input type="text" class="form-control course_code" placeholder="Course Code">
+                </div>
+                <div class="col-md-4">
+                    <input type="number" class="form-control credit_unit" placeholder="Credit Unit">
+                </div>
+                <div class="col-md-4">
+                    <select class="form-control grade">
+                        <option value="">Grade</option>
+                        <option>A</option><option>B</option><option>C</option>
+                        <option>D</option><option>E</option><option>F</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex align-items-center gap-3 mb-4">
+            <button class="btn btn-outline-secondary" onclick="addCourse('sem1')">+ Add Course</button>
+            <span class="badge-gpa">GPA: <span id="gpa1">0.00</span></span>
+        </div>
+
+        <!-- Semester 2 -->
+        <h4>Semester 2</h4>
+        <div id="sem2">
+            <div class="course-row row g-2 mb-2">
+                <div class="col-md-4">
+                    <input type="text" class="form-control course_code" placeholder="Course Code">
+                </div>
+                <div class="col-md-4">
+                    <input type="number" class="form-control credit_unit" placeholder="Credit Unit">
+                </div>
+                <div class="col-md-4">
+                    <select class="form-control grade">
+                        <option value="">Grade</option>
+                        <option>A</option><option>B</option><option>C</option>
+                        <option>D</option><option>E</option><option>F</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex align-items-center gap-3 mb-5">
+            <button class="btn btn-outline-secondary" onclick="addCourse('sem2')">+ Add Course</button>
+            <span class="badge-gpa">GPA: <span id="gpa2">0.00</span></span>
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-primary btn-lg px-5" id="calculateCGPA">Calculate CGPA</button>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="cgpa_history.html" class="btn btn-outline-light btn-sm"><i class="bi bi-clock-history"></i> View CGPA History</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- CGPA Overlay -->
+<div id="cgpaOverlay" class="d-none position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center align-items-center" style="z-index:1050;">
+    <div class="result-card p-5 text-center bg-white rounded shadow-lg" style="max-width:500px; width:90%;">
+        <button type="button" id="closeOverlay" class="btn btn-sm btn-outline-secondary mb-3">Close</button>
+        <div id="cgpaOverlayContent"></div>
+    </div>
+</div>
+
+<script>
+function addCourse(semester){
+    const row = document.querySelector(`#${semester} .course-row`).cloneNode(true);
+    row.querySelectorAll('input, select').forEach(i => i.value = '');
+    document.getElementById(semester).appendChild(row);
+}
+
+function getSemesterData(semester){
+    const courses = [];
+    document.querySelectorAll(`#${semester} .course-row`).forEach(row => {
+        const code = row.querySelector('.course_code').value;
+        const unit = row.querySelector('.credit_unit').value;
+        const grade = row.querySelector('.grade').value;
+        if(code && unit && grade){
+            courses.push({ code, unit, grade });
+        }
+    });
+    return courses;
+}
+
+function updateGPA(){
+    const token = localStorage.getItem('token') || '';
+    $.ajax({
+        url: '/hub/api/cgpa/calculate_cgpa.php',
+        method: 'POST',
+        dataType: 'json',
+        data: {
+            sem1: getSemesterData('sem1'),
+            sem2: getSemesterData('sem2')
+        },
+        headers: { 'Authorization': 'Bearer ' + token },
+        success: function(data){
+            if(data.gpa1 !== undefined){
+                $('#gpa1').text(data.gpa1);
+                $('#gpa2').text(data.gpa2);
+            }
+        }
+    });
+}
+
+$(document).on('input change', '.course_code, .credit_unit, .grade', updateGPA);
+
+$('#calculateCGPA').click(function(){
+    const sem1 = getSemesterData('sem1');
+    const sem2 = getSemesterData('sem2');
+
+    // Show animated loader
+    $('#cgpaOverlayContent').html(`
+        <div class="loader-dots mb-3">
+            <span></span><span></span><span></span>
+        </div>
+        <p>Calculating CGPA...</p>
+    `);
+    $('#cgpaOverlay').removeClass('d-none');
+
+    const token = localStorage.getItem('token') || '';
+
+    // Simulate 5 seconds loading before showing result
+    setTimeout(function(){
+        $.ajax({
+            url: '/hub/api/cgpa/calculate_cgpa.php',
+            method: 'POST',
+            dataType: 'json',
+            data: { sem1, sem2, save: 1 },
+            headers: { 'Authorization': 'Bearer ' + token },
+            success: function(data){
+                const html = `
+                    <h4 class="mb-3">CGPA Summary</h4>
+                    <p><strong>Semester 1 GPA:</strong> ${data.gpa1}</p>
+                    <p><strong>Semester 2 GPA:</strong> ${data.gpa2}</p>
+                    <h5 class="mt-3">CGPA: ${data.cgpa}</h5>
+                    <p class="mt-3"><strong>Analytics:</strong> ${data.analytics}</p>
+                    <p><strong>Advice:</strong> ${data.advice}</p>
+                `;
+                $('#cgpaOverlayContent').html(html);
+            }
+        });
+    }, 5000); // 5 seconds
+});
+
+// Close overlay
+$('#closeOverlay').click(function(){
+    $('#cgpaOverlay').addClass('d-none');
+});
+
+$(document).ready(function(){
+    updateGPA();
+});
+
+// Mobile menu toggle
+document.getElementById('menuToggle').addEventListener('click', function(){
+    document.getElementById('navLinks').classList.toggle('active');
+});
+</script>
+
+
+<!-- ===== Footer Section ===== -->
+<footer class="footer">
+  <div class="container footer-container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">UNITEX HUB</a>
+        <p>Empowering Students to Prepare, Practice, and Excel.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="get_course.html">Courses</a></li>
+            <li><a href="blogpost.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="support.html">Help Center</a></li>
+            <li><a href="faq.html">FAQs</a></li>
+            <li><a href="terms.html">Terms & Privacy</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Follow Us</h4>
+          <ul class="social-links">
+            <li><a href="https://web.facebook.com/people/Unitex-Hub-Learn-Smarter/61582938541876/" target="_blank">Facebook</a></li>
+            <li><a href="https://x.com/Unitexhub2025?s=21" target="_blank">Twitter</a></li>
+            <li><a href="https://www.instagram.com/unitexhub2025?igsh=MXFuZHBzOWJtcm5jdw%3D%3D&utm_source=qr" target="_blank">Instagram</a></li>
+            <li><a href="#" target="_blank">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <?= date('Y') ?> UNITEX HUB. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Footer CSS ===== -->
+<style>
+.footer {
+  background-color: var(--color-dark-400);
+  color: var(--color-gray-100);
+  padding: 4rem 0 2rem;
+  font-size: 0.9rem;
+}
+.footer a {
+  color: var(--color-gray-100);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer a:hover {
+  color: var(--color-blue-300);
+}
+.footer-container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.footer-brand {
+  flex: 1 1 20rem;
+}
+.footer-brand p {
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+.footer-links {
+  display: flex;
+  flex: 2 1 40rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.footer-column h4 {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--color-blue-300);
+}
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-column ul li {
+  margin-bottom: 0.5rem;
+}
+.social-links li {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 1rem;
+}
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-links {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .social-links li {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+}
+</style>
+
+
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNITEX HUB - CBT Signup</title>
+<meta name="description" content="UNITEX HUB is a digital learning and innovation platform providing university CBT exam preparation tools and resources for learners in Nigeria. It empowers students and creators with the support, tools, and guidance they need to excel in exams such as JAMB and other university CBT assessments.">
+<meta name="keywords" content="UNITEX HUB offers powerful academic performance tools from University CBT, including CGPA and GPA calculators, semester GPA trackers, and comprehensive CGPA analysis. Designed for students, these tools help you monitor and optimize your academic progress throughout university. Developed by Emmanuel Etim, UNITEX HUB empowers learners with practical education tools to track and improve their GPA, plan their semesters, and achieve academic success.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="UNITEX HUB">
+
+<!--FAVICON-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost/hub/frontend/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost/hub/frontend/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost/hub/frontend/favicon_io/favicon-16x16.png">
+<link rel="manifest" href="http://localhost/hub/frontend/favicon_io/site.webmanifest">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+<meta property="og:image" content="http://localhost/hub/frontend/assets/unitex.png">
+
+<!-- Twitter (X) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="">
+<meta name="twitter:image" content="http://localhost/hub/frontend/assets/im.png">
+   <meta name="msvalidate.01" content="7CFE9C31DF8FDE2D5E752F310DC6AA54" />
+
+   
+<link rel="stylesheet" href="css/style.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="logo">UNITEX HUB - CBT</div>
+        </div>
+    </header>
+
+    <div class="theme-toggle">
+        <button id="themeToggle" aria-label="Toggle theme">
+            <i class="bi bi-moon-fill" id="themeIcon"></i>
+        </button>
+    </div>
+
+    <!-- Global error bar (animated slide-down) -->
+    <div class="error-bar" id="errorBar" aria-live="assertive" style="display:none;">
+        <i class="bi bi-exclamation-octagon-fill"></i>
+        <div class="error-text" id="errorText">Error: Something went wrong!</div>
+        <div class="error-progress" id="errorProgress"></div>
+    </div>
+
+    <!-- Global success bar (animated slide-down) -->
+    <div class="success-bar" id="successBar" aria-live="polite" style="display:none;">
+        <i class="bi bi-check-circle-fill"></i>
+        <div class="success-text" id="successText">Success: Your action was completed!</div>
+        <div class="success-progress" id="successProgress"></div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-card">
+            <h2>Sign Up</h2>
+            <p>Create an account to start practicing</p>
+
+            <form id="signupForm">
+                <div class="input-group">
+                    <input type="text" name="name" placeholder="Full name" required>
+                    <span class="error-message" id="nameError"></span>
+                </div>
+
+                <div class="input-group">
+                    <input type="email" name="email" placeholder="Email" required>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" name="password" placeholder="Password" required>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+
+                <button type="submit" class="login-btn">Create account</button>
+            </form>
+
+            <div id="signupMsg"></div>
+
+            <div class="signup-link">
+                <p>Already have an account? <a class="signin-btn" href="unitex.hub.login.html">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+
+<!-- CONFIG MUST LOAD FIRST -->
+<script src="js/config.js"></script>
+
+<!-- Alerts helper (error/success bars) -->
+<script src="js/alerts.js"></script>
+
+<!-- Signup form handler -->
+<script src="js/signup.js"></script>
+<script src="js/de.js"></script>
+
+
+
+
+<!-- ===== Footer Section ===== -->
+<footer class="footer">
+  <div class="container footer-container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">UNITEX HUB</a>
+        <p>Empowering Students to Prepare, Practice, and Excel.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="unitex.hub.about.html">About Us</a></li>
+            <li><a href="unitex.hub.blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="unitex.hub.help.html">Help Center</a></li>
+            <li><a href="unitex.hub.faq.html">FAQs</a></li>
+            <li><a href="unitex.hub,terms.html">Terms & Privacy</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Follow Us</h4>
+          <ul class="social-links">
+            <li><a href="https://web.facebook.com/people/Unitex-Hub-Learn-Smarter/61582938541876/" target="_blank">Facebook</a></li>
+            <li><a href="https://x.com/Unitexhub2025?s=21" target="_blank">Twitter</a></li>
+            <li><a href="https://www.instagram.com/unitexhub2025?igsh=MXFuZHBzOWJtcm5jdw%3D%3D&utm_source=qr" target="_blank">Instagram</a></li>
+            <li><a href="#" target="_blank">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <?= date('Y') ?> UNITEX HUB. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Footer CSS ===== -->
+<style>
+.footer {
+  background-color: var(--color-dark-400);
+  color: var(--color-gray-100);
+  padding: 4rem 0 2rem;
+  font-size: 0.9rem;
+}
+.footer a {
+  color: var(--color-gray-100);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer a:hover {
+  color: var(--color-blue-300);
+}
+.footer-container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.footer-brand {
+  flex: 1 1 20rem;
+}
+.footer-brand p {
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+.footer-links {
+  display: flex;
+  flex: 2 1 40rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.footer-column h4 {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--color-blue-300);
+}
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-column ul li {
+  margin-bottom: 0.5rem;
+}
+.social-links li {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 1rem;
+}
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-links {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .social-links li {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+}
+</style>
+
+
+</body>
+</html>

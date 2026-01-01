@@ -1,0 +1,585 @@
+:root {
+    /* Colors */
+    --primary: #4da3ff;
+    --secondary: #0066cc;
+    --bg-main: #0f172a;
+    --bg-card: #1e293b;
+    --bg-footer: #0f172a;
+    --text-main: #ffffff;
+    --text-muted: #94a3b8;
+    --border-soft: rgba(255, 255, 255, 0.1);
+    
+    /* Variables used in your menu/cards */
+    --color-black-300: #1e293b;
+    --color-white-100: #f8fafc;
+    --color-blue-500: #3b82f6;
+    --color-blue-600: #2563eb;
+    --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-soft: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --radius: 16px;
+}
+
+/* Light theme overrides: apply when body has .light OR when JS sets data-theme="light" on the documentElement */
+body.light, [data-theme="light"] {
+    --bg-main: #f8fafc; /* page background */
+    --bg-card: #ffffff; /* card background */
+    --bg-footer: #f1f5f9;
+    --text-main: #0f172a; /* primary text */
+    --text-muted: #475569; /* muted text */
+    --border-soft: rgba(15, 23, 42, 0.06);
+    --primary: #2563eb; /* primary tint for light mode */
+    --secondary: #3b82f6;
+    --shadow-soft: 0 10px 20px rgba(16,24,40,0.06);
+    /* Ensure formerly-dark helper colors update in light mode */
+    --color-black-300: #f8fafc; /* menus, overlays */
+    --color-white-100: #0f172a; /* used for link/text on dark backgrounds; invert in light mode */
+}
+
+/* Smooth color transitions when toggling theme */
+body {
+    transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+/* Add a basic body reset so flexbox works */
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Make sizing easier to reason about: include padding/border in element width/height */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+
+/* Small element resets (avoid constraining layout width) */
+input, button { font-family: inherit; }
+div.error { margin-top:10px; color:red; }
+
+
+.menu { position: fixed; top: -100%; left: 0; width: 100%; height: auto; overflow: hidden; padding-block: 4rem; background-color: var(--color-black-300); box-shadow: var(--shadow-medium); transition: all 0.4s ease-in-out; z-index: 1600; }
+.menu.is-active { top: 0; width: 100%; height: auto; }
+.menu-inner { display: flex; flex-direction: column; justify-content: center; align-items: center; row-gap: 1.25rem; }
+.menu-link { font-family: inherit; font-size: 1rem; font-weight: 500; line-height: 1.5; color: var(--color-white-100); text-transform: uppercase; transition: all 0.3s ease; }
+.menu-link:focus { outline: 2px solid var(--color-blue-500); outline-offset: 2px; }
+.menu-block { display: inline-block; font-family: inherit; font-size: 0.875rem; font-weight: 500; line-height: 1.25; user-select: none; white-space: nowrap; text-align: center; margin-left: auto; padding: 0.65rem 1.5rem; border-radius: 3rem; text-transform: capitalize; color: var(--color-white); background-color: var(--color-blue-600); box-shadow: var(--shadow-medium); transition: all 0.3s ease-in-out; }
+
+@media only screen and (min-width: 48rem) {
+   .menu { position: relative; top: 0; width: auto; height: auto; padding: 0rem; margin-left: auto; background: none; box-shadow: none; }
+   .menu-inner { display: flex; flex-direction: row; column-gap: 2rem; margin: 0 auto; }
+   .menu-link { text-transform: capitalize; }
+   .menu-block { margin-left: 2rem; }
+}
+
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--primary);
+}
+
+/* =========================
+   ICON THEME TOGGLE
+========================= */
+.theme-toggle {
+    position: fixed;
+    top: 18px;
+    right: 20px;
+    z-index: 20;
+}
+
+.theme-toggle button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-soft);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.theme-toggle button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(77, 163, 255, 0.45);
+}
+
+.theme-toggle i {
+    font-size: 1.2rem;
+    transition: transform 0.35s ease;
+}
+
+body.light .theme-toggle button {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+body.light .theme-toggle i {
+    transform: rotate(180deg);
+}
+
+/* =========================
+   ERROR BAR (slide-down)
+========================= */
+.error-bar {
+    position: fixed;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 360px;
+    max-width: calc(100% - 40px);
+    height: 44px;
+    background-color: #e74c3c; /* error red */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.error-bar i { margin-right: 10px; font-size: 18px; }
+.error-text { flex: 1; font-size: 14px; font-weight: 600; }
+.error-progress { position: absolute; bottom: 0; left: 0; height: 4px; background: rgba(255,255,255,0.85); width: 100%; }
+
+.slide-down { animation: slideDown 0.28s forwards; }
+@keyframes slideDown { 0% { top: -60px } 100% { top: 20px } }
+
+/* shrink animation applied dynamically via JS to control duration */
+@keyframes shrink { 0% { width: 100% } 100% { width: 0% } }
+
+/* SUCCESS BAR */
+.success-bar {
+    position: fixed;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 360px;
+    max-width: calc(100% - 40px);
+    height: 44px;
+    background-color: #28a745; /* success green */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.16);
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.success-bar i { margin-right: 10px; font-size: 18px; }
+.success-text { flex: 1; font-size: 14px; font-weight: 600; }
+.success-progress { position: absolute; bottom: 0; left: 0; height: 4px; background: rgba(255,255,255,0.85); width: 100%; }
+
+.slide-down-success { animation: slideDown 0.28s forwards; }
+.slide-up-success { animation: slideUp 0.28s forwards; }
+/* =========================
+   LOGIN LAYOUT
+========================= */
+.login-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 16px;
+}
+
+/* =========================
+   LOGIN CARD
+========================= */
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.04),
+        transparent
+    ),
+    var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: var(--shadow-soft);
+    animation: fadeUp 0.8s ease;
+}
+
+.login-card h2 {
+    font-size: 1.9rem;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.login-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 26px;
+}
+
+/* =========================
+   INPUTS
+========================= */
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group input {
+    width: 100%;
+    max-width: 100%; /* never exceed container */
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border-soft);
+    background: transparent;
+    color: var(--text-main);
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box; /* ensure padding doesn't increase element width */
+}
+
+/* Invalid input highlight used by client-side validation */
+.input-group input.input-error {
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 4px rgba(231,76,60,0.08);
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 6px;
+    display: block;
+}
+
+.input-group input::placeholder {
+    color: var(--text-muted);
+}
+
+.input-group input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(77, 163, 255, 0.2);
+}
+
+/* =========================
+   LOGIN BUTTON
+========================= */
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #fff;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(77, 163, 255, 0.4);
+}
+
+.login-btn:active {
+    transform: scale(0.98);
+}
+
+/* =========================
+   LOGIN MESSAGE
+========================= */
+#loginMsg {
+    margin-top: 16px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    background: var(--bg-footer);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid var(--border-soft);
+}
+
+.footer-inner {
+    max-width: 1100px;
+    margin: auto;
+    padding: 16px 20px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 480px) {
+    .login-card {
+        padding: 28px 22px;
+    }
+}
+
+.signin-btn {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* =========================
+   PAGE LOADER
+   Simple full-screen loader shown while page loads.
+========================= */
+#pageLoader {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-main);
+    z-index: 2000;
+    opacity: 1;
+    transition: opacity 0.45s ease;
+}
+
+.loader-logo {
+    width: 220px; /* increased size */
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 10px 36px rgba(0,0,0,0.6));
+    transform-origin: center;
+    will-change: transform;
+    backface-visibility: hidden;
+    /* pop in/out effect */
+    animation: loader-pop 1s ease-in-out infinite;
+}
+
+@keyframes loader-pop {
+    0% {
+        transform: scale(0.85);
+        opacity: 0;
+    }
+    30% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+    60% {
+        transform: scale(0.96);
+        opacity: 0.95;
+    }
+    100% {
+        transform: scale(0.85);
+        opacity: 0;
+    }
+}
+
+.header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Site header/navbar for practice pages */
+.header {
+    width: 100%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    border-bottom: 1px solid var(--border-soft);
+    backdrop-filter: blur(6px);
+}
+
+.navbar ul { display: flex; gap: 1rem; margin: 0; padding: 0; list-style: none; align-items:center; }
+.navbar a { color: var(--text-muted); text-decoration: none; font-weight: 600; padding: 8px 10px; border-radius: 8px; transition: all 0.18s ease; }
+.navbar a:hover { color: var(--text-main); background: rgba(255,255,255,0.03); }
+.navbar a.active { color: var(--text-main); background: rgba(255,255,255,0.04); }
+
+.page-content { max-width: 1100px; margin: 28px auto; padding: 0 20px 60px; }
+
+/* Footer enhancements */
+.footer-inner { max-width: 1100px; margin: auto; padding: 20px; }
+.footer-grid { display: flex; gap: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.footer-brand { font-weight: 800; color: var(--primary); font-size: 1.05rem; }
+.footer-links a { color: var(--text-muted); text-decoration: none; margin-right: 12px; font-weight: 600; }
+.footer-links a:hover { color: var(--text-main); }
+.footer-info { color: var(--text-muted); font-size: 0.95rem; }
+
+@media (max-width: 680px) {
+    .navbar ul { gap: 0.5rem; }
+    .header-inner { padding: 12px 14px; }
+    .page-content { margin: 18px auto; padding: 0 14px 60px; }
+    .footer-grid { text-align: center; gap: 10px; }
+}
+
+/* Header Styles (theme-aware) */
+.header {
+    /* default header uses the card background so it's light in light mode */
+    background: var(--bg-card, linear-gradient(135deg, #1f3a60, #233d64));
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* Stronger styling for dark theme to preserve contrast and style */
+[data-theme="dark"] .header, body:not(.light) .header {
+    background: linear-gradient(135deg, #1f3a60, #233d64);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+.welcome-message h1 {
+    font-size: 30px;
+    color: var(--primary);
+    text-shadow: none;
+}
+
+.navbar ul { list-style: none; display: flex; gap: 20px; }
+.navbar ul li { position: relative; }
+.navbar ul li a { color: var(--text-muted); text-decoration: none; font-size: 18px; transition: color 0.3s; }
+.navbar ul li a:hover { color: var(--primary); }
+
+.navbar ul li a .logout-icon {
+    font-size: 22px;
+    padding-right: 10px;
+}
+
+/* General Styles (use CSS variables so theme toggles correctly) */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+}
+
+/* Headings */
+h2 {
+    text-align: center;
+    color: var(--text-main);
+    margin-top: 20px;
+}
+
+/* Setup Section Styles */
+#setupSection {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: var(--bg-card);
+    border-radius: 10px;
+    box-shadow: var(--shadow-soft, 0 4px 10px rgba(0, 0, 0, 0.08));
+}
+
+.setup-item {
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 18px;
+}
+
+select, input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    background-color: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-soft);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--text-main-on-primary, #fff);
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover { opacity: 0.95; }
+
+/* Exam Section */
+#examSection {
+    background-color: var(--bg-card);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+#timer { text-align: center; font-size: 28px; color: var(--text-main); }
+
+/* Result Section */
+#resultSection {
+    padding: 20px;
+    text-align: center;
+    background-color: var(--bg-card);
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+/* Pop-up Modal */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background-color: var(--bg-card);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    color: var(--text-main);
+    border: 1px solid var(--border-soft);
+}
+
+.popup h3 { color: var(--primary); font-size: 24px; }
+.popup p { font-size: 18px; color: var(--text-main); }
+.popup button { padding: 12px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--text-main-on-primary, #fff); font-size: 18px; border: none; border-radius: 5px; cursor: pointer; width: 100%; }
+.popup button:hover { opacity: 0.95; }
+
+/* Make popup overlay lighter in light mode */
+body.light .popup, [data-theme="light"] .popup { background-color: rgba(255,255,255,0.6); }

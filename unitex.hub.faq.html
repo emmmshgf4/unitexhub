@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNITEX HUB | FAQ & Blog</title>
+<meta name="description" content="UNITEX HUB is a digital learning and innovation platform providing university CBT exam preparation tools and resources for learners in Nigeria. It empowers students and creators with the support, tools, and guidance they need to excel in exams such as JAMB and other university CBT assessments.">
+<meta name="keywords" content="UNITEX HUB offers powerful academic performance tools from University CBT, including CGPA and GPA calculators, semester GPA trackers, and comprehensive CGPA analysis. Designed for students, these tools help you monitor and optimize your academic progress throughout university. Developed by Emmanuel Etim, UNITEX HUB empowers learners with practical education tools to track and improve their GPA, plan their semesters, and achieve academic success.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="UNITEX HUB">
+
+<!--FAVICON-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost/hub/frontend/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost/hub/frontend/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost/hub/frontend/favicon_io/favicon-16x16.png">
+<link rel="manifest" href="http://localhost/hub/frontend/favicon_io/site.webmanifest">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+<meta property="og:image" content="http://localhost/hub/frontend/assets/unitex.png">
+
+<!-- Twitter (X) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="">
+<meta name="twitter:image" content="http://localhost/hub/frontend/assets/im.png">
+   <meta name="msvalidate.01" content="7CFE9C31DF8FDE2D5E752F310DC6AA54" />
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;
+  --text:#1f2937;
+  --card:#f9fafb;
+  --primary:#004aad;
+  --muted:#6b7280;
+}
+
+body.dark{
+  --bg:#0f172a;
+  --text:#e5e7eb;
+  --card:#111827;
+  --primary:#3b82f6;
+  --muted:#9ca3af;
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:.3s;
+}
+
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 8%;
+  background:var(--card);
+  box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+
+header h1{font-size:22px;color:var(--primary);}
+
+.toggle{
+  padding:8px 16px;
+  border:none;
+  border-radius:20px;
+  background:var(--primary);
+  color:#fff;
+  cursor:pointer;
+}
+
+section{padding:60px 8%;}
+
+h2{font-size:28px;margin-bottom:10px;}
+
+p.subtitle{color:var(--muted);max-width:700px;}
+
+/* FAQ */
+.faq{max-width:900px;margin-top:40px;}
+.faq-item{
+  background:var(--card);
+  margin-bottom:15px;
+  border-radius:12px;
+  padding:20px;
+  cursor:pointer;
+}
+.faq-item h3{
+  display:flex;
+  justify-content:space-between;
+  font-size:18px;
+}
+.faq-item p{display:none;color:var(--muted);margin-top:10px;}
+.faq-item.active p{display:block;}
+
+/* Blog */
+.blog-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+  margin-top:40px;
+}
+
+.blog-card{
+  background:var(--card);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.blog-card img{width:100%;height:170px;object-fit:cover;}
+
+.blog-card .content{padding:20px;}
+.blog-card h4{margin:0 0 10px;}
+.blog-card p{font-size:14px;color:var(--muted);}
+.blog-card a{
+  display:inline-block;
+  margin-top:15px;
+  color:var(--primary);
+  text-decoration:none;
+  font-weight:600;
+}
+
+footer{
+  padding:30px;
+  text-align:center;
+  background:var(--card);
+  color:var(--muted);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>UNITEX HUB</h1>
+  <button class="toggle" onclick="toggleMode()">Toggle Mode</button>
+</header>
+
+<section>
+  <h2>Frequently Asked Questions</h2>
+  <p class="subtitle">Answers to common questions about UNITEX HUB, our CBT tools, and learning resources.</p>
+
+  <div class="faq">
+    <div class="faq-item">
+      <h3>What is UNITEX HUB? <span>+</span></h3>
+      <p>UNITEX HUB is a digital learning platform offering CBT practice, academic resources, and tools that help students and educators succeed.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Which exams does UNITEX HUB support? <span>+</span></h3>
+      <p>We support preparation for UNIVERSITY CBT EXAMS, JAMB, WAEC, NECO, and other academic assessments through smart CBT systems.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Is UNITEX HUB mobile-friendly? <span>+</span></h3>
+      <p>Yes. UNITEX HUB is fully responsive and optimized for smartphones, tablets, and desktops.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Do I need to pay to use UNITEX HUB? <span>+</span></h3>
+      <p>Some features are free, while advanced tools and premium resources may require a subscription.</p>
+    </div>
+  </div>
+
+   <div class="faq-item">
+      <h3>What is the benefit of using UNITEX HUB? <span>+</span></h3>
+      <p>UNITEX HUB provides a structured yet flexible digital environment where<br> learners can study, practice, and improve at their own pace. <br>It offers smart learning technology that removes barriers to education and supports measurable progress.</p>
+    </div>
+  </div>
+
+     <div class="faq-item">
+      <h3>What happens if a make payment and i didn't verify <span>+</span></h3>
+      <p>If you make a payment but do not verify it within the specified time, your transaction will be canceled, and  it cannot be refunded according to our refund policy.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+  <h3>How do I create an account on UNITEX HUB? <span>+</span></h3>
+  <p>To create an account, click on the “Sign Up” button, fill in your correct details, and submit the form. A verification step may be required before full access is granted.</p>
+</div>
+
+
+<div class="faq-item">
+  <h3>How do I log in to my account? <span>+</span></h3>
+  <p>Click on the “Login” button, enter your registered email or username and password, then submit. Ensure your details are correct to avoid login issues.</p>
+</div>
+
+
+<div class="faq-item">
+  <h3>What should I do if I forget my password? <span>+</span></h3>
+  <p>Use the “Forgot Password” option on the login page to reset your password. Follow the instructions sent to your registered email.</p>
+</div>
+
+<div class="faq-item">
+  <h3>Why am I unable to log in to my account? <span>+</span></h3>
+  <p>This may occur due to incorrect login details, an unverified account, or temporary system maintenance. Double-check your credentials or contact support if the issue persists.</p>
+</div>
+
+<div class="faq-item">
+  <h3>How do I verify my account after registration? <span>+</span></h3>
+  <p>After registration, follow the verification instructions provided on the platform or sent to your email to activate your account fully.</p>
+</div>
+
+<div class="faq-item">
+  <h3>What happens if I make a payment but forget to upload my proof of payment? <span>+</span></h3>
+  <p>If proof of payment is not uploaded within the required time, the transaction will remain unverified and may be canceled automatically.</p>
+</div>
+
+<div class="faq-item">
+  <h3>Can I verify my payment after the time limit has passed? <span>+</span></h3>
+  <p>Late verification may not be accepted. Users are advised to upload proof of payment immediately after completing a transaction.</p>
+</div>
+
+<div class="faq-item">
+  <h3>How long does payment verification take? <span>+</span></h3>
+  <p>Payment verification is usually completed within a short period, but it may take longer during peak hours or due to network delays.</p>
+</div>
+
+<div class="faq-item">
+  <h3>Will I lose my access if my payment is not verified? <span>+</span></h3>
+  <p>Yes. Unverified payments do not grant access to premium features or services on the platform.</p>
+</div>
+
+<div class="faq-item">
+  <h3>How do I start a CBT practice after logging in? <span>+</span></h3>
+  <p>Once logged in, navigate to the CBT section, select your exam type, and click “Start Test” to begin your practice session.</p>
+</div>
+
+<div class="faq-item">
+  <h3>Can I pause a CBT test and continue later? <span>+</span></h3>
+  <p>CBT sessions are timed. Once started, pausing may not be allowed depending on the test configuration.</p>
+</div>
+
+<div class="faq-item">
+  <h3>What should I do if my test ends unexpectedly? <span>+</span></h3>
+  <p>If a test ends due to network or device issues, contact support with your details for assistance.</p>
+</div>
+
+<div class="faq-item">
+  <h3>Is my personal information safe on UNITEX HUB? <span>+</span></h3>
+  <p>Yes. We take data security seriously and use appropriate measures to protect your personal information.</p>
+</div>
+
+
+</section>
+
+
+
+<section>
+  <h2>Latest from Our Blog</h2>
+  <p class="subtitle">Insights, study tips, and educational updates to help you learn smarter.</p>
+
+  <div class="blog-grid">
+    <div class="blog-card">
+      <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df" alt="Study Tips">
+      <div class="content">
+        <h4>How to Prepare Effectively for CBT Exams</h4>
+        <p>Discover proven strategies to boost your performance and confidence in computer-based tests.</p>
+        <a href="blogpost.php">Read More</a>
+      </div>
+    </div>
+
+    <div class="blog-card">
+      <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b" alt="Digital Learning">
+      <div class="content">
+        <h4>The Future of Digital Learning in Nigeria</h4>
+        <p>Exploring how technology is transforming education for students nationwide.</p>
+        <a href="blogpost.php">Read More</a>
+      </div>
+    </div>
+
+    <div class="blog-card">
+      <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0" alt="Success">
+      <div class="content">
+        <h4>Top Study Habits of High-Performing Students</h4>
+        <p>Learn the daily habits that separate successful students from the rest.</p>
+        <a href="blogpost.php">Read More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ===== Footer Section ===== -->
+<footer class="footer">
+  <div class="container footer-container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">UNITEX HUB</a>
+        <p>Empowering Students to Prepare, Practice, and Excel.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="unitex.hub.about.html">About Us</a></li>
+            <li><a href="unitex.hub.blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="unitex.hub.help.html">Help Center</a></li>
+            <li><a href="unitex.hub.faq.html">FAQs</a></li>
+            <li><a href="unitex.hub,terms.html">Terms & Privacy</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Follow Us</h4>
+          <ul class="social-links">
+            <li><a href="https://web.facebook.com/people/Unitex-Hub-Learn-Smarter/61582938541876/" target="_blank">Facebook</a></li>
+            <li><a href="https://x.com/Unitexhub2025?s=21" target="_blank">Twitter</a></li>
+            <li><a href="https://www.instagram.com/unitexhub2025?igsh=MXFuZHBzOWJtcm5jdw%3D%3D&utm_source=qr" target="_blank">Instagram</a></li>
+            <li><a href="#" target="_blank">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <?= date('Y') ?> UNITEX HUB. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Footer CSS ===== -->
+<style>
+.footer {
+  background-color: var(--color-dark-400);
+  color: var(--color-gray-100);
+  padding: 4rem 0 2rem;
+  font-size: 0.9rem;
+}
+.footer a {
+  color: var(--color-gray-100);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer a:hover {
+  color: var(--color-blue-300);
+}
+.footer-container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.footer-brand {
+  flex: 1 1 20rem;
+}
+.footer-brand p {
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+.footer-links {
+  display: flex;
+  flex: 2 1 40rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.footer-column h4 {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--color-blue-300);
+}
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-column ul li {
+  margin-bottom: 0.5rem;
+}
+.social-links li {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 1rem;
+}
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-links {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .social-links li {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+}
+</style>
+
+
+
+</body>
+</html>

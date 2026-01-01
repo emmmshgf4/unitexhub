@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNITEX HUB - Practice Result</title>
+
+    <meta name="description" content="UNITEX HUB is a digital learning and innovation platform providing university CBT exam preparation tools and resources for learners in Nigeria. It empowers students and creators with the support, tools, and guidance they need to excel in exams such as JAMB and other university CBT assessments.">
+<meta name="keywords" content="UNITEX HUB offers powerful academic performance tools from University CBT, including CGPA and GPA calculators, semester GPA trackers, and comprehensive CGPA analysis. Designed for students, these tools help you monitor and optimize your academic progress throughout university. Developed by Emmanuel Etim, UNITEX HUB empowers learners with practical education tools to track and improve their GPA, plan their semesters, and achieve academic success.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="UNITEX HUB">
+
+<!--FAVICON-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost/hub/frontend/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost/hub/frontend/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost/hub/frontend/favicon_io/favicon-16x16.png">
+<link rel="manifest" href="http://localhost/hub/frontend/favicon_io/site.webmanifest">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+<meta property="og:image" content="http://localhost/hub/frontend/assets/unitex.png">
+
+<!-- Twitter (X) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="">
+<meta name="twitter:image" content="http://localhost/hub/frontend/assets/im.png">
+   <meta name="msvalidate.01" content="7CFE9C31DF8FDE2D5E752F310DC6AA54" />
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+
+<script>
+// Early guard: require login to view results; allow right-click, keep copy prevention
+(function(){
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) { window.location.href = 'index.html'; return; }
+    document.addEventListener('copy', function(ev){ ev.clipboardData.setData('text/plain',''); ev.preventDefault(); });
+  } catch (e) { /* ignore */ }
+})();
+</script>
+
+
+<div class="theme-toggle">
+    <button id="themeToggle" aria-label="Toggle theme">
+        <i class="bi bi-moon-fill" id="themeIcon"></i>
+    </button>
+</div>
+
+
+<main class="page-content">
+    <!-- Animated AI header (UNITEX HUB) -->
+    <header class="ai-hero" role="banner" aria-label="UNITEX HUB AI header">
+        <div class="ai-hero-inner">
+            <div class="ai-badge-small" aria-hidden="true">🤖</div>
+            <div>
+                <div class="brand">UNITEX HUB</div>
+                <div class="hero-tag"> Insights & Performance</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="navigation-footer">
+    <button id="returnSetup" class="btn-back">
+        <span class="icon">←</span> 
+    </button>
+</div>
+<style>
+    .navigation-footer {
+    margin-top: 30px;
+    padding: 20px 0;
+    text-align: center;
+    /* Use theme-aware border so dark mode uses the dark border */
+    border-top: 1px solid var(--card-border);
+  }
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  /* Use theme variables so this button adapts to light/dark modes */
+  background-color: var(--card-bg);
+  color: var(--card-text);
+  border: 2px solid var(--card-border);
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+  /* subtle hover that works in both light and dark themes */
+  background-color: rgba(255,255,255,0.03);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.btn-back .icon {
+    font-size: 18px;
+    transition: transform 0.2s ease;
+}
+
+.btn-back:hover .icon {
+    transform: translateX(-4px);
+}
+
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const returnBtn = document.getElementById('returnSetup');
+
+    if (returnBtn) {
+        returnBtn.addEventListener('click', () => {
+            // 1. (Optional) Clear session storage so the user doesn't see old results
+            localStorage.removeItem('currentSession');
+            localStorage.removeItem('currentDuration');
+            
+            // 2. Redirect the user back to the main practice page
+            window.location.href = 'practice.html'; 
+        });
+    }
+});
+</script>
+<h2>Result</h2>
+<!-- Profile summary pulled from users table (Name from Department) -->
+<div id="profileSummary" style="margin-top:6px;margin-bottom:12px;color:var(--text-muted);"></div>
+<!-- Separate holder for the big score chart (kept apart from the detailed review container) -->
+<div id="scoreChartHolder" aria-hidden="false"></div>
+<!-- Action row: left = Donaug chat / right = session stats -->
+<div id="resultActionRow" class="result-action-row" aria-label="Action row: chat and stats"></div>
+<!-- User progress summary: recent per-topic progress for this user -->
+<section id="userProgressSection" style="margin-top:14px;">
+    <h3>User Progress</h3>
+    <!-- AI insights card (shiny blue->green) -->
+    <div id="aiInsightHolder" style="margin-bottom:12px;"></div>
+    <div id="userProgressHolder">Loading progress…</div>
+</section>
+  <div id="resultSection">
+  <div id="resultContainer"></div>
+  <button id="returnSetup" title="Back to Practice Setup" aria-label="Back to Practice Setup">←</button>
+</div>
+
+<style>
+    /* Make this results page full-bleed: remove center container constraints */
+    .page-content { max-width: none !important; padding: 12px 18px !important; margin: 0 !important; }
+    /* Ensure children expand full width */
+    #scoreChartHolder, #userProgressSection, #resultSection, #resultContainer { width: 100% !important; max-width: none !important; }
+    /* Make the big chart stretch edge-to-edge */
+    .score-chart { width: 100%; max-width: none; }
+    .progress-table { width: 100%; max-width: none; }
+    #resultContainer { margin-top: 18px; }
+    .result-summary { font-size: 1.1rem; margin-bottom: 12px; }
+    .result-advice { margin-top: 6px; color: var(--text-muted); }
+    /* Score chart styles */
+    .score-chart { margin-top: 12px; width:100%; max-width:none; }
+    /* Canvas wrapper for round chart */
+    #scoreChartHolder .chart-canvas { width:100%; max-width:420px; height:260px; margin:0; }
+    @media (max-width:640px){ #scoreChartHolder .chart-canvas { height:160px; } }
+    /* Animated AI header (hero) */
+    .ai-hero { position:relative; overflow:hidden; border-radius:10px; padding:18px; margin-bottom:12px; background:linear-gradient(135deg,#0ea5e9 0%, #10b981 100%); color:#fff; box-shadow:0 10px 30px rgba(2,6,23,0.12); }
+    .ai-hero-inner { display:flex; gap:14px; align-items:center; }
+    .ai-badge-small { width:52px; height:52px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:22px; background:rgba(255,255,255,0.14); box-shadow:0 6px 18px rgba(0,0,0,0.12); }
+    .ai-hero .brand { font-size:22px; font-weight:900; letter-spacing:1px; line-height:1; margin-bottom:6px; background:linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.75) 50%, rgba(255,255,255,0.95) 100%); -webkit-background-clip:text; background-clip:text; color:transparent; background-size:200% 100%; animation: ai-shimmer 3s linear infinite; }
+    .ai-hero .hero-tag { font-size:13px; opacity:0.95; }
+    .ai-hero::after { content:''; position:absolute; inset:-20% -40%; transform:rotate(-12deg); background:linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.02) 100%); animation: ai-wave 4.2s linear infinite; pointer-events:none; }
+    @keyframes ai-shimmer { 0% { background-position: -100% 0; } 100% { background-position: 200% 0; } }
+    @keyframes ai-wave { 0% { transform: translateX(-40%) rotate(-12deg);} 100% { transform: translateX(140%) rotate(-12deg);} }
+    .score-chart .chart-label { font-size:1.05rem; margin-bottom:8px; }
+    /* BIG split-bar: left = correct (green), right = wrong (red) */
+    .score-chart .bar { height:120px; background:transparent; border-radius:0; overflow:hidden; display:flex; }
+    .score-chart .segment { height:100%; transition: width 900ms cubic-bezier(.2,.9,.2,1); min-width:0; display:flex; align-items:center; justify-content:center; }
+    .score-chart .segment.correct { background:var(--success, #198754); color:#fff; }
+    .score-chart .segment.wrong { background:var(--danger, #dc3545); color:#fff; }
+    .score-chart .seg-label { text-align:center; font-size:20px; font-weight:700; padding:8px 12px; line-height:1.1; }
+    .score-chart .seg-sub { display:block; font-size:12px; font-weight:400; opacity:0.9; }
+    /* Legend moved under the big bar */
+    .score-chart .legend { font-size:12px; margin-top:8px; display:flex; gap:12px; color:var(--text-muted); }
+    .score-chart .legend .leg.correct { color:var(--success, #198754); font-weight:700; }
+    .score-chart .legend .leg.wrong { color:var(--danger, #dc3545); font-weight:700; }
+    @media (max-width:640px){ .score-chart .bar { height:80px; } .score-chart .seg-label { font-size:16px; } }
+    /* User progress list */
+    #userProgressSection h3 { margin-top:6px; margin-bottom:8px; }
+    .progress-table { width:100%; border-collapse:collapse; max-width:none; }
+    /* AI Insights shiny card */
+    #aiInsightHolder { margin-bottom: 12px; }
+    .ai-card { display:flex; gap:14px; align-items:center; padding:14px; border-radius:10px; color:#fff; overflow:hidden; box-shadow:0 6px 18px rgba(2,6,23,0.12); }
+    .ai-card::before { content:''; position:absolute; left:0; right:0; top:0; bottom:0; z-index:0; border-radius:10px; opacity:0.95; }
+    .ai-card .ai-left { z-index:1; display:flex; align-items:center; gap:12px; }
+    .ai-badge { width:56px; height:56px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:18px; box-shadow:0 4px 18px rgba(0,0,0,0.12); }
+    .ai-content { z-index:1; }
+    .ai-title { font-size:16px; font-weight:800; margin-bottom:6px; }
+    .ai-sub { font-size:13px; opacity:0.95; }
+    /* gradient background and subtle shimmer animation */
+    .ai-gradient-bluegreen { position:relative; background: linear-gradient(135deg, #0ea5e9 0%, #10b981 100%); }
+    .ai-gradient-bluegreen::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.12), rgba(255,255,255,0.06)); mix-blend-mode:overlay; transform:translateX(-30%); animation: shine 3.6s linear infinite; opacity:0.9; z-index:0; }
+    @keyframes shine { from { transform:translateX(-40%); } to { transform:translateX(140%); } }
+    .ai-stat { font-size:18px; font-weight:800; }
+    .progress-table th, .progress-table td { text-align:left; padding:8px 10px; border-bottom:1px solid rgba(0,0,0,0.06); }
+    .progress-table th { font-weight:700; font-size:13px; }
+    .progress-empty { color:var(--text-muted); }
+    .review-list {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .review-item {
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .review-header { display:flex; gap:10px; align-items:center; margin-bottom:6px; }
+    .qnum { font-weight:700; }
+    .qstatus.correct { color: #198754; font-weight:700; }
+    .qstatus.wrong { color: #dc3545; font-weight:700; }
+    .qtext { margin-bottom:8px; }
+    .review-options { list-style:none; padding:0; margin:0 0 8px 0; }
+    .review-options .opt { padding:6px 0; }
+    .opt-correct { background: rgba(25,135,84,0.04); }
+    .opt-your { font-weight:700; }
+    .badge.correct { color:#fff;background:var(--success, #198754);padding:2px 6px;border-radius:4px;margin-left:8px;font-size:12px; }
+    .badge.wrong { color:#fff;background:var(--danger, #dc3545);padding:2px 6px;border-radius:4px;margin-left:8px;font-size:12px; }
+    .explanation { margin-top:8px; color:var(--text-muted); }
+    /* Small round back button */
+    #returnSetup { margin-top:16px; padding:0; width:44px; height:44px; border-radius:999px; background:var(--primary); color:var(--text-main-on-primary,#fff); border:none; display:inline-flex; align-items:center; justify-content:center; font-size:18px; cursor:pointer; box-shadow:0 6px 18px rgba(2,6,23,0.08); }
+    #returnSetup:hover { transform:translateY(-1px); box-shadow:0 10px 24px rgba(2,6,23,0.12); }
+    @media (max-width:680px){ .review-item { padding:10px 6px; } }
+
+    /* ================================
+   ACTION ROW (CHAT + STATS)
+================================ */
+.result-action-row {
+  display: flex;
+  gap: 12px;
+  /* ensure all cards in the row have the same height */
+  align-items: stretch;
+  margin: 12px 0;
+}
+
+.action-card {
+  display: flex;
+  align-items: center;
+  /* fill the available height when the parent row stretches */
+  height: 100%;
+  gap: 12px;
+  padding: 12px;
+  min-height: 64px;
+  flex: 1 1 0;
+
+  border-radius: 10px;
+  background: var(--card-bg);
+  color: var(--card-text);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 6px 18px var(--card-shadow);
+}
+
+.chat-card {
+  justify-content: space-between;
+  flex: 1 1 40%;
+}
+
+.stats-card {
+  flex: 1 1 60%;
+  display: flex;
+  flex-direction: column;
+  /* distribute internal space so values align when the card is taller */
+  justify-content: space-between;
+}
+
+.stats-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.stat-value {
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.donaug-btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* Mobile */
+@media (max-width: 680px) {
+  .result-action-row {
+    flex-direction: column;
+  }
+}
+
+/* ================================
+   DONAUG THEME VARIABLES
+================================ */
+:root {
+  /* Map page-specific variables to the global theme variables so theme toggles work consistently */
+  --card-bg: var(--bg-card);
+  --card-text: var(--text-main);
+  --card-border: var(--border-soft);
+  --card-shadow: var(--shadow-soft);
+
+  --donaug-bg: var(--bg-card);
+  --donaug-text: var(--text-main);
+  --donaug-muted: var(--text-muted);
+  --donaug-border: var(--card-border);
+  --donaug-shadow: var(--card-shadow);
+}
+
+/* ================================
+   DONAUG MODAL
+================================ */
+#donaugModal {
+  display: none;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+
+  background: var(--donaug-bg);
+  color: var(--donaug-text);
+
+  border-radius: 10px;
+  padding: 12px;
+  min-width: 260px;
+
+  border: 1px solid var(--donaug-border);
+  box-shadow: 0 12px 30px var(--donaug-shadow);
+
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.donaug-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.donaug-header button {
+  background: transparent;
+  border: none;
+  color: var(--donaug-text);
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.donaug-body {
+  font-size: 13px;
+  color: var(--donaug-muted);
+}
+
+
+</style>
+
+<script src="js/config.js"></script>
+<script src="js/de.js"></script>
+<!-- Chart.js for round charts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+<script src="js/practice.result.js"></script>
+<script src="js/auth.js"></script>
+<!-- Donaug Chat modal -->
+<div id="donaugModal"
+     role="dialog"
+     aria-modal="true"
+     aria-hidden="true"
+     aria-label="Donaug chat dialog">
+  
+  <div class="donaug-header">
+    <strong>Donaug Chat</strong>
+    <button id="donaugClose" type="button" aria-label="Close chat">✕</button>
+  </div>
+
+  <div id="donaugBody" class="donaug-body">
+    Chat coming soon — placeholder for the Donaug assistant.
+  </div>
+</div>
+
+
+
+</main>
+
+
+<!-- ===== Footer Section ===== -->
+<footer class="footer">
+  <div class="container footer-container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.php" class="brand">UNITEX HUB</a>
+        <p>Empowering Students to Prepare, Practice, and Excel.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="about.php">About Us</a></li>
+            <li><a href="get_course.php">Courses</a></li>
+            <li><a href="blogpost.php">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="support.php">Help Center</a></li>
+            <li><a href="unitex.faq.php">FAQs</a></li>
+            <li><a href="terms.php">Terms & Privacy</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Follow Us</h4>
+          <ul class="social-links">
+            <li><a href="https://web.facebook.com/people/Unitex-Hub-Learn-Smarter/61582938541876/" target="_blank">Facebook</a></li>
+            <li><a href="https://x.com/Unitexhub2025?s=21" target="_blank">Twitter</a></li>
+            <li><a href="https://www.instagram.com/unitexhub2025?igsh=MXFuZHBzOWJtcm5jdw%3D%3D&utm_source=qr" target="_blank">Instagram</a></li>
+            <li><a href="#" target="_blank">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <?= date('Y') ?> UNITEX HUB. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Footer CSS ===== -->
+<style>
+.footer {
+  background-color: var(--color-dark-400);
+  color: var(--color-gray-100);
+  padding: 4rem 0 2rem;
+  font-size: 0.9rem;
+}
+.footer a {
+  color: var(--color-gray-100);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer a:hover {
+  color: var(--color-blue-300);
+}
+.footer-container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.footer-brand {
+  flex: 1 1 20rem;
+}
+.footer-brand p {
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+.footer-links {
+  display: flex;
+  flex: 2 1 40rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.footer-column h4 {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--color-blue-300);
+}
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-column ul li {
+  margin-bottom: 0.5rem;
+}
+.social-links li {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 1rem;
+}
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-links {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .social-links li {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+}
+</style>
+
+</body>
+</html>

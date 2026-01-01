@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Add Post</title>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Quill CSS -->
+<link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+<style>
+    label {
+        font-weight: bold;
+    }
+    #editor {
+        height: 200px;
+    }
+</style>
+</head>
+<body class="bg-light">
+
+<script>
+// Protect admin pages: require valid adminToken in localStorage
+(async function ensureAdmin(){
+    const token = localStorage.getItem('adminToken');
+    if (!token) { window.location.href = '/hub/frontend/index.html'; return; }
+    try {
+        const res = await fetch('/hub/api/rooms/list.php', { headers: { 'Authorization': 'Bearer ' + token } });
+        if (!res.ok) { localStorage.removeItem('adminToken'); window.location.href = '/hub/frontend/index.html'; return; }
+        const data = await res.json();
+        if (!data || data.status === false) { localStorage.removeItem('adminToken'); window.location.href = '/hub/frontend/index.html'; return; }
+        // valid admin — allow page to continue
+    } catch (err) {
+        console.error('Admin token validation failed', err);
+        localStorage.removeItem('adminToken');
+        window.location.href = '/hub/frontend/index.html';
+    }
+})();
+</script>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Add New Post</h4>
+                </div>
+                <div class="card-body">
+                    <form id="postForm">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" id="title" class="form-control" placeholder="Post title">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <!-- Quill Editor -->
+                            <div id="editor"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="image1" class="form-label">Image 1 (Top)</label>
+                            <input type="file" id="image1" class="form-control" accept="image/*">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="image2" class="form-label">Image 2 (Center)</label>
+                            <input type="file" id="image2" class="form-control" accept="image/*">
+                        </div>
+
+                        <button type="button" id="submitBtn" class="btn btn-success w-100 fw-bold">Add Post</button>
+
+                        <div id="result" class="mt-3 fw-bold"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Existing posts (admin only) -->
+<div class="container my-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">Existing Posts</h5>
+                </div>
+                <div class="card-body">
+                    <div id="postsList">Loading posts...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Quill JS -->
+<script src="https://cdn.quilljs.com/1.3.7/quill.js"></script>
+
+<script>
+    // Initialize Quill editor
+    var quill = new Quill('#editor', {
+        theme: 'snow',
+        placeholder: 'Write your post here...',
+        modules: {
+            toolbar: [
+                [{ header: [1, 2, false] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ color: [] }, { background: [] }],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                ['link', 'image'],
+                ['clean']
+            ]
+        }
+    });
+
+    const submitBtn = document.getElementById('submitBtn');
+    const resultDiv = document.getElementById('result');
+
+    submitBtn.addEventListener('click', () => {
+        const title = document.getElementById('title').value.trim();
+        const message = quill.root.innerHTML; // Get formatted HTML
+        const image1 = document.getElementById('image1').files[0];
+        const image2 = document.getElementById('image2').files[0];
+        // If we're editing, update; else create
+        const editingId = submitBtn.getAttribute('data-edit-id');
+
+        if(!title || !message){
+            resultDiv.className = 'text-danger fw-bold';
+            resultDiv.textContent = 'Title and message are required.';
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('message', message);
+        if(image1) formData.append('image1', image1);
+        if(image2) formData.append('image2', image2);
+
+        const adminToken = localStorage.getItem('adminToken') || '';
+        const isEditing = !!editingId;
+        const url = isEditing ? '/hub/api/post/update_post.php' : '/hub/api/post/add_post.php';
+        if(isEditing) formData.append('id', editingId);
+
+        fetch(url, {
+            method: 'POST',
+            headers: { 'Authorization': 'Bearer ' + adminToken },
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === 'success'){
+                resultDiv.className = 'text-success fw-bold';
+                resultDiv.textContent = data.message;
+                document.getElementById('postForm').reset();
+                quill.setContents([]); // Clear editor
+                // Reset edit state
+                submitBtn.textContent = 'Add Post';
+                submitBtn.removeAttribute('data-edit-id');
+                document.getElementById('cancelEdit')?.remove();
+                loadPosts();
+            } else {
+                resultDiv.className = 'text-danger fw-bold';
+                resultDiv.textContent = data.message;
+            }
+        })
+        .catch(err => {
+            resultDiv.className = 'text-danger fw-bold';
+            resultDiv.textContent = 'Error: ' + err.message;
+            console.error(err);
+        });
+    });
+
+// Load existing posts and render table
+function loadPosts(){
+    const list = document.getElementById('postsList');
+    list.innerHTML = 'Loading posts...';
+    fetch('/hub/api/post/get_posts.php')
+    .then(r=>r.json())
+    .then(posts=>{
+        if(!posts || posts.length===0){ list.innerHTML = '<p class="text-muted">No posts found.</p>'; return; }
+        const table = document.createElement('table');
+        table.className = 'table table-striped table-hover';
+        table.innerHTML = `
+            <thead><tr><th>ID</th><th>Title</th><th>Created</th><th>Actions</th></tr></thead>
+            <tbody></tbody>`;
+        const tbody = table.querySelector('tbody');
+        posts.forEach(p=>{
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${p.id}</td>
+                <td>${p.title}</td>
+                <td>${p.created_at}</td>
+                <td>
+                  <button class="btn btn-sm btn-primary btn-edit" data-id="${p.id}">Edit</button>
+                  <button class="btn btn-sm btn-danger btn-delete ms-2" data-id="${p.id}">Delete</button>
+                </td>`;
+            tbody.appendChild(tr);
+        });
+        list.innerHTML = '';
+        list.appendChild(table);
+
+        // attach handlers
+        list.querySelectorAll('.btn-delete').forEach(b=> b.addEventListener('click', onDelete));
+        list.querySelectorAll('.btn-edit').forEach(b=> b.addEventListener('click', onEdit));
+    })
+    .catch(err=>{ console.error(err); document.getElementById('postsList').innerHTML = '<p class="text-danger">Error loading posts</p>'; });
+}
+
+function onDelete(e){
+    const id = e.currentTarget.getAttribute('data-id');
+    if(!confirm('Delete post #' + id + '? This cannot be undone.')) return;
+    const token = localStorage.getItem('adminToken') || '';
+    fetch('/hub/api/post/delete_post.php', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'id=' + encodeURIComponent(id)
+    }).then(r=>r.json()).then(data=>{
+        if(data.status === 'success') loadPosts(); else alert(data.message || 'Delete failed');
+    }).catch(err=>{ console.error(err); alert('Error deleting post'); });
+}
+
+function onEdit(e){
+    const id = e.currentTarget.getAttribute('data-id');
+    // fetch posts then find item (reuse get_posts)
+    fetch('/hub/api/post/get_posts.php').then(r=>r.json()).then(posts=>{
+        const p = posts.find(x=>String(x.id)===String(id));
+        if(!p){ alert('Post not found'); return; }
+        document.getElementById('title').value = p.title;
+        quill.root.innerHTML = p.message || '';
+        // set edit mode
+        submitBtn.setAttribute('data-edit-id', id);
+        submitBtn.textContent = 'Update Post';
+        // add cancel button
+        if(!document.getElementById('cancelEdit')){
+          const btn = document.createElement('button'); btn.className = 'btn btn-secondary w-100 mt-2'; btn.id='cancelEdit'; btn.textContent='Cancel Edit';
+          btn.addEventListener('click', ()=>{ document.getElementById('postForm').reset(); quill.setContents([]); submitBtn.removeAttribute('data-edit-id'); submitBtn.textContent='Add Post'; btn.remove(); });
+          submitBtn.parentNode.insertBefore(btn, submitBtn.nextSibling);
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// initial load
+loadPosts();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile Page</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+:root{
+    --bg: #0b1020; /* dark default */
+    --card: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    --muted: #9aa4b2;
+    --accent: linear-gradient(135deg,#6c7efc,#7ee7c7);
+    --glass: rgba(255,255,255,0.03);
+    --text: #e6eef8;
+    --shadow: 0 10px 30px rgba(2,6,23,0.6);
+}
+body.light{
+    --bg: #f6fbff;
+    --card: linear-gradient(180deg,#ffffff,#fbfdff);
+    --muted: #6b7280;
+    --text: #071032;
+    --glass: rgba(255,255,255,0.6);
+    --shadow: 0 8px 24px rgba(16,24,40,0.06);
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--text); font-family:Inter,system-ui,Segoe UI,Roboto,Arial; margin:0; transition:background .45s ease,color .35s ease}
+.profile-wrapper{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:48px 20px}
+.profile-container{width:100%; max-width:920px; border-radius:20px; padding:32px; background:var(--card); box-shadow:var(--shadow); position:relative; overflow:hidden; transition:transform .45s cubic-bezier(.2,.9,.3,1), box-shadow .35s ease}
+.profile-container:hover{transform:translateY(-6px)}
+.page-header{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px}
+.page-header h2{margin:0; font-size:1.4rem}
+.theme-toggle{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);padding:8px 10px;border-radius:10px;cursor:pointer}
+.profile-hero{display:flex; align-items:center; justify-content:center; position:relative; padding:18px 0 6px}
+.ai-deco{position:absolute; width:260px; height:260px; border-radius:50%; filter:blur(32px); opacity:.12; transform-origin:center;}
+.ai-deco.deco-left{left:-70px; top:-60px; background:radial-gradient(circle at 30% 30%, #6c7efc 0%, rgba(124,141,252,0.1) 40%, transparent 60%);}
+.ai-deco.deco-right{right:-80px; bottom:-80px; background:radial-gradient(circle at 70% 70%, #7ee7c7 0%, rgba(126,231,199,0.08) 40%, transparent 60%);}
+.avatar-wrap{width:170px;height:170px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));box-shadow:0 12px 36px rgba(2,6,23,0.5);backdrop-filter: blur(6px); transition:transform .4s ease; padding:10px; overflow:hidden}
+.avatar-wrap:hover{transform:scale(1.03)}
+.profile-pic{width:100%;height:100%;border-radius:50%;object-fit:contain;background:transparent;transition:filter .3s ease, transform .35s ease}
+.profile-pic.loading{filter:blur(6px) grayscale(.15); transform:scale(.98)}
+.meta{display:flex; gap:18px; align-items:flex-start; margin-top:14px; justify-content:center}
+.profile-info{min-width:300px}
+.profile-info h5{font-size:15px;margin:6px 0;color:var(--muted)}
+.upload-controls{display:flex;gap:12px;align-items:center;justify-content:center;margin-top:18px}
+.progress{width:320px;height:10px;background:rgba(255,255,255,0.04);border-radius:999px;overflow:hidden}
+.progress > i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#6c7efc,#7ee7c7);transition:width .35s ease}
+.btn-primary{background:linear-gradient(90deg,#6c7efc,#7ee7c7);border:none;padding:8px 14px;border-radius:10px;color:#031124;cursor:pointer}
+.btn-primary:active{transform:translateY(1px)}
+.note{position:fixed;right:24px;bottom:24px;background:rgba(0,0,0,0.6);color:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.4);opacity:0;transform:translateY(10px);transition:opacity .25s ease, transform .25s ease}
+.note.show{opacity:1;transform:translateY(0)}
+
+/* responsive */
+@media (max-width:720px){.profile-container{padding:20px}.meta{flex-direction:column;align-items:center}.progress{width:220px}}
+</style>
+</head>
+<body>
+
+<div class="profile-wrapper">
+    <div class="profile-container">
+        <div class="page-header">
+            <h2>Profile</h2>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        </div>
+
+        <div class="profile-hero">
+            <div class="ai-deco deco-left" aria-hidden></div>
+            <div class="ai-deco deco-right" aria-hidden></div>
+            <div class="avatar-wrap">
+                <img id="profilePic" class="profile-pic" src="/hub/uploads/profile_pics/default.png" alt="Profile Picture">
+            </div>
+        </div>
+
+    <div class="profile-info">
+        <h5>Email: <span id="email">Loading...</span></h5>
+        <h5>Account Type: <span id="accountType">Loading...</span></h5>
+        <h5>Last Login: <span id="lastLogin">Loading...</span></h5>
+        <h5 id="upgradeSection" style="display:none;"> <button id="upgradeBtn" class="btn btn-warning">Upgrade to Premium</button> </h5>
+    </div>
+
+    <form id="profilePicForm" enctype="multipart/form-data" style="margin-top: 20px;">
+        <input type="file" name="profile_pic" id="profile_pic" class="form-control" required>
+        <div class="upload-controls">
+            <div class="progress" aria-hidden><i></i></div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+    </form>
+    <div id="note" class="note" role="status" aria-live="polite"></div>
+</div>
+
+<script>
+const profilePicForm = document.getElementById('profilePicForm');
+const profilePicInput = document.getElementById('profile_pic');
+const profilePicImg = document.getElementById('profilePic');
+const emailElement = document.getElementById('email');
+const accountTypeElement = document.getElementById('accountType');
+const lastLoginElement = document.getElementById('lastLogin');
+const upgradeSection = document.getElementById('upgradeSection');
+const upgradeBtn = document.getElementById('upgradeBtn');
+
+// Fetch user details and profile picture when the page loads
+async function fetchUserProfile() {
+    try {
+        const response = await fetch('/hub/api/fetch_user_details.php', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        });
+
+        const result = await response.json();
+
+        if (result.status) {
+            const user = result.data;
+            // Set user details
+            emailElement.innerText = user.email;
+            accountTypeElement.innerText = user.is_premium === 1 ? 'Premium' : 'Standard';
+            lastLoginElement.innerText = user.last_login;
+
+            // Show the upgrade button if the user is not premium
+            if (user.is_premium === 0) {
+                upgradeSection.style.display = 'block';
+            }
+
+            // Set profile picture (use default if not present)
+            profilePicImg.src = `/hub/uploads/profile_pics/${user.profile_pic || 'default.png'}`;
+        } else {
+            alert(result.message);
+        }
+    } catch (error) {
+        console.error('Error fetching user profile', error);
+        alert('Error fetching user profile');
+    }
+}
+
+// Handle profile picture upload
+profilePicForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append('profile_pic', profilePicInput.files[0]);
+
+    try {
+        const response = await fetch('/hub/api/profile_pic.php', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        });
+        const result = await response.json();
+        console.log('upload result', result);
+        if (result.status) {
+            // Update the profile picture on the frontend (cache-bust)
+            profilePicImg.classList.add('loading');
+            profilePicImg.src = `/hub/uploads/profile_pics/${result.data.profile_pic}?t=${Date.now()}`;
+            showNote('Profile picture uploaded successfully', 'success');
+            document.querySelector('.progress > i').style.width = '100%';
+        } else {
+            showNote(result.message || 'Upload failed', 'error');
+            document.querySelector('.progress > i').style.width = '0%';
+        }
+    } catch (error) {
+        console.error('Error uploading profile picture', error);
+        showNote('Error uploading profile picture', 'error');
+        document.querySelector('.progress > i').style.width = '0%';
+    }
+});
+
+// Helper: show transient notification
+function showNote(msg, type='info'){
+    const el = document.getElementById('note');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add('show');
+    if (type === 'error') el.style.background = 'rgba(170,40,40,0.9)';
+    else el.style.background = 'rgba(2,6,23,0.8)';
+    setTimeout(()=> el.classList.remove('show'), 3500);
+}
+
+// Theme handling: default dark
+const themeToggle = document.getElementById('themeToggle');
+function applyTheme(isLight){
+    if (isLight) document.body.classList.add('light');
+    else document.body.classList.remove('light');
+}
+// default to dark unless user explicitly chose light
+const savedTheme = localStorage.getItem('profile_theme');
+if (savedTheme === 'light') applyTheme(true);
+else applyTheme(false);
+if (themeToggle) themeToggle.addEventListener('click', ()=>{
+    const isLight = !document.body.classList.contains('light');
+    applyTheme(isLight);
+    localStorage.setItem('profile_theme', isLight ? 'light' : 'dark');
+});
+
+// Image load animation: remove loading class on load
+profilePicImg.addEventListener('load', ()=>{
+    profilePicImg.classList.remove('loading');
+});
+
+// Optional: animate progress visually (fake smooth progress while uploading)
+const fileInputEl = document.getElementById('profile_pic');
+fileInputEl && fileInputEl.addEventListener('change', ()=>{
+    const bar = document.querySelector('.progress > i');
+    if (!bar) return;
+    bar.style.width = '6%';
+    // small animated ramp
+    setTimeout(()=> bar.style.width = '28%', 300);
+});
+
+
+// Load user profile details when the page loads
+fetchUserProfile();
+
+</script>
+
+</body>
+</html>

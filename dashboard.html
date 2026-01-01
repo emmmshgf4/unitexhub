@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNITEX HUB - Users Dashboard</title>
+<meta name="description" content="UNITEX HUB is a digital learning and innovation platform providing university CBT exam preparation tools and resources for learners in Nigeria. It empowers students and creators with the support, tools, and guidance they need to excel in exams such as JAMB and other university CBT assessments.">
+<meta name="keywords" content="UNITEX HUB offers powerful academic performance tools from University CBT, including CGPA and GPA calculators, semester GPA trackers, and comprehensive CGPA analysis. Designed for students, these tools help you monitor and optimize your academic progress throughout university. Developed by Emmanuel Etim, UNITEX HUB empowers learners with practical education tools to track and improve their GPA, plan their semesters, and achieve academic success.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="UNITEX HUB">
+
+<!--FAVICON-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost/hub/frontend/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost/hub/frontend/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost/hub/frontend/favicon_io/favicon-16x16.png">
+<link rel="manifest" href="http://localhost/hub/frontend/favicon_io/site.webmanifest">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+<meta property="og:image" content="http://localhost/hub/frontend/assets/unitex.png">
+
+<!-- Twitter (X) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="">
+<meta name="twitter:image" content="http://localhost/hub/frontend/assets/im.png">
+   <meta name="msvalidate.01" content="7CFE9C31DF8FDE2D5E752F310DC6AA54" />
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+:root{
+    --bg: #f7fbff;
+    --card-bg: #ffffff;
+    --muted: #6b7280;
+    --accent: #6c7efc; /* soft blue-purple */
+    --accent-2: #7ee7c7; /* mint */
+    --text: #0f172a;
+    --glass: rgba(255,255,255,0.6);
+    --shadow: 0 8px 30px rgba(16,24,40,0.06);
+}
+
+body.dark{
+    --bg: linear-gradient(180deg,#071032 0%, #0b1020 100%);
+    --card-bg: #0f1724;
+    --muted: #9ca3af;
+    --accent: #8b9cff;
+    --accent-2: #2dd4bf;
+    --text: #e6eef8;
+    --glass: rgba(20,24,32,0.35);
+    --shadow: 0 10px 30px rgba(3,7,18,0.6);
+}
+
+body{
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: var(--bg);
+    color: var(--text);
+    padding-top: 72px;
+    transition: background 0.35s ease, color 0.35s ease;
+}
+
+/* Topbar */
+.topbar{
+    position:fixed; top:0; left:0; right:0; height:72px; display:flex; align-items:center; z-index:1000;
+    backdrop-filter: blur(6px);
+    background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.4));
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+body.dark .topbar{ background: linear-gradient(180deg, rgba(8,12,20,0.6), rgba(8,12,20,0.45)); border-bottom: 1px solid rgba(255,255,255,0.04); }
+.topbar .container{ display:flex; align-items:center; justify-content:space-between; }
+.brand{ font-weight:700; font-size:1.05rem; color:var(--accent); display:flex; align-items:center; gap:10px; }
+.brand .logo-dot{ width:10px; height:10px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 6px 18px rgba(110,112,252,0.18); }
+
+.theme-toggle{ background:var(--glass); border:none; padding:8px 12px; border-radius:999px; display:inline-flex; gap:8px; align-items:center; cursor:pointer; box-shadow:var(--shadow); }
+.theme-toggle svg{ width:18px; height:18px; display:block; }
+
+/* Topbar nav & profile */
+.top-nav .nav-link{ color:var(--text); text-decoration:none; padding:6px 8px; border-radius:8px; font-weight:600; }
+.top-nav .nav-link:hover{ background:rgba(0,0,0,0.03); }
+body.dark .top-nav .nav-link:hover{ background:rgba(255,255,255,0.03); }
+.profile-avatar{ background:var(--accent); color:#fff; }
+.profile-avatar img{ width:100%; height:100%; border-radius:50%; object-fit:cover; display:block; }
+.profile-menu a{ display:block; }
+body.dark .profile-menu{ border:1px solid rgba(255,255,255,0.04); background:var(--card-bg); }
+.profile-menu a:hover{ background:rgba(0,0,0,0.04); }
+.profile-menu .separator{ height:1px; background:rgba(0,0,0,0.04); }
+
+h3{ color:var(--text); margin-bottom:18px; font-weight:700; }
+
+.card{ border-radius:14px; background:var(--card-bg); box-shadow:var(--shadow); transition: transform 0.25s ease, box-shadow 0.25s ease; margin-bottom:20px; border:1px solid rgba(0,0,0,0.04); }
+.card:hover{ transform: translateY(-6px); box-shadow:0 18px 48px rgba(16,24,40,0.12); }
+.card h5{ color:var(--text); margin-bottom:6px; }
+.card p{ color:var(--muted); font-size:0.95rem; }
+.card .btn-primary{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); border:none; box-shadow:0 8px 20px rgba(100,110,255,0.12); }
+.card .btn-primary:hover{ opacity:0.95; transform:translateY(-2px); }
+
+.rooms-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
+
+.empty-state{ text-align:center; color:var(--muted); padding:28px; }
+
+.modal-content{ border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.75), var(--card-bg)); backdrop-filter: blur(4px); }
+body.dark .modal-content{ background: linear-gradient(180deg, rgba(12,16,22,0.7), var(--card-bg)); }
+
+@media (max-width:576px){ .topbar .container{ padding-left:12px; padding-right:12px; } .cbt-wrapper{ padding:16px; } }
+
+/* Writeup / Feature Section */
+.writeup-section{ padding:36px 0; }
+.writeup-grid{ display:grid; grid-template-columns: 1fr 420px; gap:30px; align-items:center; }
+.writeup-text h4{ font-size:1.6rem; margin-bottom:10px; color:var(--text); }
+.writeup-text .lead{ color:var(--muted); font-size:1rem; margin-bottom:16px; }
+.feature-list{ list-style:none; padding:0; margin:0 0 18px 0; display:grid; gap:10px; }
+.feature-list li{ padding:10px 12px; border-radius:10px; background: linear-gradient(90deg, rgba(110,126,252,0.06), rgba(126,231,199,0.03)); color:var(--text); display:flex; gap:10px; align-items:center; }
+.feature-dot{ width:10px; height:10px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 6px 18px rgba(110,112,252,0.12); flex:0 0 10px; }
+.writeup-visual{ display:flex; justify-content:center; }
+.ai-card{ width:100%; max-width:420px; border-radius:14px; padding:22px; background:linear-gradient(135deg, rgba(124,141,252,0.12), rgba(126,231,199,0.06)); box-shadow:0 12px 36px rgba(18,24,40,0.08); border:1px solid rgba(255,255,255,0.06); }
+.ai-card .chip{ display:flex; align-items:center; gap:12px; }
+.ai-chip-icon{ width:48px; height:48px; border-radius:10px; background:linear-gradient(180deg,var(--accent),var(--accent-2)); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:18px; }
+.ai-stats{ margin-top:18px; display:flex; gap:12px; }
+.ai-stats .stat{ flex:1; padding:10px; border-radius:10px; background:rgba(255,255,255,0.6); text-align:center; }
+body.dark .ai-card{ background: linear-gradient(135deg, rgba(124,141,252,0.08), rgba(34,197,94,0.04)); }
+body.dark .ai-stats .stat{ background: rgba(255,255,255,0.03); color:var(--text); }
+
+@media (max-width:900px){ .writeup-grid{ grid-template-columns: 1fr; } .writeup-visual{ order:-1; margin-bottom:12px; } }
+
+/* ===== AI CTA Cards Styling ===== */
+.ai-cta-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; align-items:stretch; margin-top:18px; }
+.ai-cta-card{ position:relative; display:block; overflow:hidden; border-radius:14px; padding:18px; color:#ffffff; min-height:140px; text-decoration:none; box-shadow:0 10px 30px rgba(16,24,40,0.08); transform:translateY(30px) scale(.98); opacity:0; transition:transform 0.7s cubic-bezier(.2,.9,.3,1), opacity 0.6s ease, box-shadow 0.25s ease; }
+.ai-cta-card.visible{ transform:translateY(0) scale(1); opacity:1; }
+.ai-cta-card .cta-deco{ position:absolute; right:-30px; top:-30px; width:220px; height:220px; border-radius:50%; filter:blur(22px); opacity:0.18; transform:rotate(30deg); }
+.cta-practice{ background: linear-gradient(135deg,#6c7efc,#7ee7c7); }
+.cta-practice .cta-deco{ background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), rgba(255,255,255,0)); }
+.cta-assist{ background: linear-gradient(135deg,#ff7eb6,#ffcf60); }
+.cta-assist .cta-deco{ background: radial-gradient(circle at 70% 70%, rgba(255,255,255,0.35), rgba(255,255,255,0)); }
+.ai-cta-card .cta-content{ position:relative; z-index:2; display:flex; flex-direction:column; height:100%; }
+.cta-top{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.cta-badge{ background:rgba(255,255,255,0.12); padding:6px 10px; border-radius:999px; font-weight:700; font-size:0.75rem; letter-spacing:0.6px; }
+.cta-title{ margin:8px 0 6px; font-size:1.05rem; font-weight:700; }
+.cta-desc{ font-size:0.87rem; color:rgba(255,255,255,0.95); margin-bottom:12px; }
+.cta-actions{ margin-top:auto; display:flex; align-items:center; gap:12px; }
+.ai-icon{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:10px; background:rgba(255,255,255,0.12); font-size:20px; }
+.ai-btn{ background:rgba(255,255,255,0.95); color:#111; padding:8px 12px; border-radius:10px; border:none; font-weight:700; cursor:pointer; transition:transform 0.18s ease, box-shadow 0.18s ease; }
+.ai-btn:hover{ transform:translateY(-3px); box-shadow:0 6px 20px rgba(0,0,0,0.12); }
+
+/* subtle gradient shift */
+@keyframes bgShift { 0% { background-position:0% 50% } 50% { background-position:100% 50% } 100% { background-position:0% 50% } }
+.cta-practice{ background-size:200% 200%; animation: bgShift 8s ease infinite; }
+.cta-assist{ background-size:200% 200%; animation: bgShift 9s ease infinite; }
+
+/* Hover lift */
+.ai-cta-card:hover{ transform:translateY(-6px) scale(1.02); box-shadow:0 30px 60px rgba(10,20,50,0.15); }
+
+/* Responsive: stack on small screens and reduce padding */
+@media (max-width:768px){
+  .ai-cta-grid{ grid-template-columns:1fr; }
+  .ai-cta-card{ padding:14px; min-height:120px; }
+  .cta-title{ font-size:1rem; }
+  .cta-desc{ font-size:0.82rem; }
+  .ai-icon{ width:38px; height:38px; }
+}
+
+/* Payment initializing overlay (AI-tech style) */
+.payment-overlay{ position:fixed; inset:0; background:linear-gradient(180deg, rgba(2,6,23,0.6), rgba(3,7,18,0.65)); display:flex; align-items:center; justify-content:center; z-index:2000; backdrop-filter: blur(6px); opacity:0; pointer-events:none; transition:opacity .25s ease; }
+.payment-overlay.visible{ opacity:1; pointer-events:auto; }
+.payment-card{ width:100%; max-width:640px; background:linear-gradient(135deg, rgba(16,24,40,0.94), rgba(28,30,48,0.96)); border-radius:12px; padding:22px; color:#fff; box-shadow:0 30px 70px rgba(6,10,20,0.7); display:flex; gap:18px; align-items:center; }
+.payment-left{ flex:0 0 120px; display:flex; align-items:center; justify-content:center; }
+.ai-ring{ width:96px; height:96px; border-radius:50%; position:relative; display:inline-block; }
+.ai-ring .core{ position:absolute; inset:20px; border-radius:50%; background:linear-gradient(135deg,#7ee7c7,#6c7efc); box-shadow:0 8px 36px rgba(110,112,252,0.22); filter:blur(.6px); }
+.ai-ring:before,.ai-ring:after{ content:''; position:absolute; border-radius:50%; }
+.ai-ring:before{ inset:-6px; border:3px solid rgba(126,231,199,0.12); transform:rotate(0deg); animation:spinSlow 6s linear infinite; }
+.ai-ring:after{ inset:-20px; border:1px dashed rgba(255,255,255,0.03); transform:rotate(90deg); animation:spinSlow 10s linear reverse infinite; }
+@keyframes spinSlow{ 0%{ transform:rotate(0deg);} 100%{ transform:rotate(360deg);} }
+.payment-info{ flex:1; }
+.payment-info h4{ margin:0 0 6px 0; font-weight:800; letter-spacing:0.6px; font-size:1.12rem; }
+.payment-info p{ margin:0; color:rgba(255,255,255,0.85); }
+.payment-actions{ margin-top:12px; display:flex; gap:8px; align-items:center; }
+.payment-actions .btn{ padding:8px 12px; font-weight:700; border-radius:10px; }
+.payment-hint{ margin-top:8px; color:rgba(255,255,255,0.6); font-size:0.92rem; }
+
+/* subtle shimmer for title */
+.payment-info h4{ position:relative; overflow:hidden; }
+.payment-info h4:before{ content:''; position:absolute; left:-40%; top:0; height:100%; width:40%; background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.18), rgba(255,255,255,0)); transform:skewX(-18deg); animation:shimmer 2.2s linear infinite; pointer-events:none; }
+@keyframes shimmer{ 0%{ left:-40% } 100%{ left:140% } }
+
+
+/* ===== Dark mode overrides for AI CTA cards ===== */
+body.dark .ai-cta-card{ box-shadow:0 10px 30px rgba(0,0,0,0.6); }
+body.dark .cta-practice{ background: linear-gradient(135deg,#2f3fb7,#0f9f87); }
+body.dark .cta-practice .cta-deco{ background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.06), rgba(255,255,255,0)); opacity:0.12; }
+body.dark .cta-assist{ background: linear-gradient(135deg,#b44a7a,#c77e2e); }
+body.dark .cta-assist .cta-deco{ background: radial-gradient(circle at 70% 70%, rgba(255,255,255,0.06), rgba(255,255,255,0)); opacity:0.12; }
+body.dark .cta-badge{ background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.95); }
+body.dark .cta-desc{ color: rgba(255,255,255,0.92); }
+body.dark .ai-icon{ background: rgba(255,255,255,0.06); color: #fff; }
+body.dark .ai-btn{ background: rgba(255,255,255,0.06); color: #fff; border: 1px solid rgba(255,255,255,0.08); }
+body.dark .ai-btn:hover{ background: rgba(255,255,255,0.10); }
+
+
+</style>
+</head>
+<body>
+<!-- DASHBOARD LOADER -->
+<div id="dashboard-loader">
+  <div class="brand">UNITEX HUB</div>
+
+  <div class="progress-track">
+    <div class="progress-bar"></div>
+  </div>
+
+  <div class="loader-text" id="loaderText">
+    Preparing your dashboard…
+  </div>
+</div>
+
+<style>
+#dashboard-loader{
+  position:fixed;
+  inset:0;
+  background:#ffffff;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  transition:opacity .35s ease;
+}
+
+body.no-scroll{ overflow:hidden; }
+
+.brand{
+  font-weight:600;
+  letter-spacing:.5px;
+  margin-bottom:18px;
+  font-size:1.1rem;
+}
+
+/* Progress bar */
+.progress-track{
+  width:280px;
+  height:6px;
+  background:#e9ecef;
+  border-radius:6px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  width:0%;
+  height:100%;
+  background:#0d6efd;
+  animation:load 2.6s ease forwards;
+}
+
+.fast .progress-bar{
+  animation-duration:.8s;
+}
+
+/* Loader text */
+.loader-text{
+  margin-top:14px;
+  font-size:.95rem;
+  color:#6c757d;
+  text-align:center;
+  min-height:1.2em;
+}
+
+@keyframes load{
+  from{ width:0%; }
+  to{ width:100%; }
+}
+
+@media(max-width:500px){
+  .progress-track{ width:220px; }
+}
+</style>
+
+<script>
+document.body.classList.add('no-scroll');
+
+const loader = document.getElementById('dashboard-loader');
+const textEl = document.getElementById('loaderText');
+
+const KEY   = 'dashboard_last_seen';
+const LIMIT = 5 * 60 * 1000; // 5 minutes
+
+const now  = Date.now();
+const last = localStorage.getItem(KEY);
+const fast = last && (now - last < LIMIT);
+
+if(fast){
+  loader.classList.add('fast');
+}
+
+localStorage.setItem(KEY, now);
+
+/* Status messages */
+const messages = fast
+  ? [
+      'Welcome back…',
+      'Preparing your dashboard…',
+      'Almost ready…'
+    ]
+  : [
+      'Preparing your dashboard…',
+      'Loading your data securely…',
+      'Finalizing setup…'
+    ];
+
+let i = 0;
+const interval = setInterval(() => {
+  i++;
+  if(i < messages.length){
+    textEl.textContent = messages[i];
+  } else {
+    clearInterval(interval);
+  }
+}, fast ? 300 : 900);
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    loader.style.opacity = '0';
+    setTimeout(() => {
+      loader.remove();
+      document.body.classList.remove('no-scroll');
+    }, 350);
+  }, fast ? 900 : 2800);
+});
+</script>
+
+
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-left" style="display:flex;align-items:center;gap:18px">
+      <div class="brand"><span class="logo-dot"></span> UNITEX HUB</div>
+      <ul class="top-nav" style="display:flex;gap:12px;list-style:none;margin:0;padding:0;align-items:center">
+       
+      </ul>
+    </div>
+    <div class="topbar-right" style="display:flex;align-items:center;gap:12px">
+  
+      <span id="premiumBadge" class="badge bg-success" style="display:none;margin-left:8px; padding:8px 10px; font-weight:700;">Premium</span>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.76 4.84l-1.8-1.79L3.17 4.84l1.79 1.8 1.8-1.8zM1 13h3v-2H1v2zm10 8h2v-3h-2v3zm7.03-16.19l-1.79-1.8-1.8 1.79 1.8 1.8 1.79-1.79zM17.24 19.16l1.79 1.8 1.8-1.79-1.8-1.8-1.79 1.79zM20 11v2h3v-2h-3zM4.24 19.16l1.79-1.8-1.8-1.79L2.44 17.37l1.8 1.79zM12 6a6 6 0 100 12 6 6 0 000-12z"/></svg>
+        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M12 2a9.77 9.77 0 00-1 .06 1 1 0 00-.71 1.37 7 7 0 11-8.15 8.15A1 1 0 003.06 15 9.77 9.77 0 002 12C2 6.48 6.48 2 12 2z"/></svg>
+      </button>
+
+      <!-- mobile menu toggle (hamburger) -->
+      <button id="menuToggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false" style="display:none;border:none;background:transparent;padding:8px;border-radius:8px;">
+        <span style="display:block;width:18px;height:2px;background:var(--text);margin:3px 0;border-radius:2px"></span>
+        <span style="display:block;width:18px;height:2px;background:var(--text);margin:3px 0;border-radius:2px"></span>
+        <span style="display:block;width:14px;height:2px;background:var(--text);margin:3px 0;border-radius:2px"></span>
+      </button>
+
+      <div id="topProfile" style="position:relative;">
+        <div id="profileAvatar" class="profile-avatar" title="Profile" tabindex="0" style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--muted);color:#fff;font-weight:700;cursor:pointer;overflow:hidden;">
+          U
+        </div>
+        <div id="profileMenu" class="profile-menu d-none" style="position:absolute;right:0;top:48px;min-width:180px;background:var(--card-bg);border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,0.12);overflow:hidden;border:1px solid rgba(0,0,0,0.06);">
+          <a href="unitex.hub.profile.html" class="d-block" style="padding:10px 12px;color:var(--text);text-decoration:none">Profile</a>
+          <a href="practice.html" class="d-block" style="padding:10px 12px;color:var(--text);text-decoration:none">Practice</a>
+          <a href="history.html" class="d-block" style="padding:10px 12px;color:var(--text);text-decoration:none">My Results</a>
+         <a href="/hub/api/logout.php" 
+   style="display:inline-block; padding:10px 12px; color:var(--text); cursor:pointer; border-top:1px solid rgba(0,0,0,0.04); text-decoration:none;">
+   Sign out
+</a>
+
+            <button id="upgradeBtn" class="btn btn-primary">Upgrade to Premium (₦500)</button>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+
+  <!-- Payment initializing overlay -->
+  <div id="paymentOverlay" class="payment-overlay" aria-hidden="true">
+    <div class="payment-card" role="dialog" aria-modal="true" aria-label="Initializing payment dialog">
+      <div class="payment-left">
+        <div class="ai-ring" aria-hidden="true"><div class="core"></div></div>
+      </div>
+      <div class="payment-info">
+        <h4 id="paymentTitle">UNITEX HUB — Initializing payment</h4>
+        <p id="paymentSub">Preparing secure checkout. Please do not close this window.</p>
+        <div class="payment-hint" id="paymentMeta">Amount: ₦500 · Secured by Paystack</div>
+        <div class="payment-actions">
+          <button id="paymentCancel" class="btn btn-outline-light">Cancel</button>
+          <button id="paymentRetry" class="btn btn-light" style="display:none">Retry</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div id="roomsSection" class="container py-4">
+    <h3>Available Exams</h3>
+    <div id="roomsList" class="rooms-grid"></div>
+    <div id="roomsEmpty" class="empty-state d-none">No exams available.</div>
+</div>
+
+
+            <div class="writeup-visual">
+                <div class="ai-card">
+                    <div class="chip">
+                        <div class="ai-chip-icon">AI</div>
+                        <div>
+                            <div id="aiTitle" style="font-weight:700;">AI Assist</div>
+                            <div style="font-size:0.9rem; color:var(--muted)">Smart practice insights</div>
+                        </div>
+                    </div>
+
+                    <div class="ai-stats">
+                        <div id="avgPassStat" class="stat"><div style="font-size:1.1rem; font-weight:700">--</div><div style="font-size:0.8rem; color:var(--muted)">Avg pass rate</div></div>
+                        <div id="avgTimeStat" class="stat"><div style="font-size:1.1rem; font-weight:700">--</div><div style="font-size:0.8rem; color:var(--muted)">Avg attempts</div></div>
+                    </div>
+
+                    <!-- Recent per-topic user progress table -->
+                    <div style="margin-top:14px">
+                        <h5 style="margin-bottom:8px">Recent Progress</h5>
+                        <div style="overflow:auto">
+                            <table id="progressTable" class="progress-table" style="width:100%;border-collapse:collapse">
+                                <thead>
+                                    <tr>
+                    
+                                        <th style="text-align:left;padding:8px 10px">Topic</th>
+                                        <th style="text-align:left;padding:8px 10px">Attempts</th>
+                                        <th style="text-align:left;padding:8px 10px">Avg</th>
+                                   
+                                    </tr>
+                                </thead>
+                                <tbody><tr><td colspan="5" class="text-muted" style="padding:12px">Loading …</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== AI CTA: Two colorful animated cards ===== -->
+    <section class="ai-cta-section container" style="margin-top:18px;">
+      <div class="ai-cta-grid">
+        <a href="practice.html" class="ai-cta-card cta-practice fade-on-scroll" aria-label="Start practice">
+          <div class="cta-deco"></div>
+          <div class="cta-content">
+            <div class="cta-top">
+              <div class="cta-badge">PRACTICE</div>
+              <h4 class="cta-title">Smart Practice Questions</h4>
+            </div>
+            <p class="cta-desc">Adaptive practice tailored to your strengths — dynamic sets, instant feedback, and timed sessions.</p>
+            <div class="cta-actions">
+              <span class="ai-icon" aria-hidden>🤖</span>
+              <button class="ai-btn">Start Now</button>
+            </div>
+          </div>
+        </a>
+
+        <a href="unitex.hub.cgpa.html" class="ai-cta-card cta-assist fade-on-scroll" aria-label="Submit assignment request">
+          <div class="cta-deco"></div>
+          <div class="cta-content">
+            <div class="cta-top">
+              <div class="cta-badge">CGPA</div>
+              <h4 class="cta-title">CGPA CALC.</h4>
+            </div>
+            <p class="cta-desc">Calculate your CGPA instantly and see detailed insights to improve your academic performance.”</p>
+            <div class="cta-actions">
+              <span class="ai-icon" aria-hidden>🎓</span>
+              <button class="ai-btn">Calculate Now!</button>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    
+
+<!-- Password Modal -->
+<div class="modal fade" id="passwordModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content p-4">
+      <h5 class="mb-3">Enter Room Password</h5>
+      <input type="password" id="roomPasswordInput" class="form-control mb-3" placeholder="Room Password">
+      <button id="verifyRoomBtn" class="btn btn-primary mb-2">Enter Exam</button>
+      <div id="passwordError" class="text-danger mt-2"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Paystack inline script (for payments) -->
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+const API = "/hub/api";
+const token = localStorage.getItem("token"); // JWT token
+
+if (!token) {
+    alert("Please login first.");
+    window.location.href = "/hub/frontend/unitex.hub.login.html";
+}
+
+const headers = { 
+    "Authorization": "Bearer " + token, // must match PHP auth
+    "Content-Type": "application/json"
+};
+
+let selectedRoomId = null;
+
+/* Load available rooms */
+async function loadRooms() {
+    try {
+        const res = await fetch(API + "/rooms/available.php", { headers });
+        if (!res.ok) throw new Error("HTTP error " + res.status);
+        const data = await res.json();
+
+        if (!data.status) {
+            alert(data.message || "Error loading rooms");
+            return;
+        }
+
+        const container = document.getElementById("roomsList");
+        container.innerHTML = "";
+
+        if (!data.data.rooms || data.data.rooms.length === 0) {
+            document.getElementById('roomsEmpty').classList.remove('d-none');
+            container.innerHTML = '';
+            return;
+        }
+
+        document.getElementById('roomsEmpty').classList.add('d-none');
+
+        data.data.rooms.forEach(room => {
+            const col = document.createElement("div");
+            col.innerHTML = `
+                <div class="card p-4 h-100">
+                    <h5>${room.name}</h5>
+                    <p>${room.description || ''}</p>
+                    <div class="mt-3 d-grid"><button class="btn btn-primary" onclick="promptPassword(${room.id})">Take Exam</button></div>
+                </div>
+            `;
+            container.appendChild(col);
+        });
+
+    } catch (err) {
+        console.error("Rooms API error:", err);
+        alert("Error loading rooms. Please check your login.");
+    }
+}
+
+/* Prompt password modal */
+function promptPassword(roomId) {
+    selectedRoomId = roomId;
+    document.getElementById("roomPasswordInput").value = '';
+    document.getElementById("passwordError").innerText = '';
+    const modal = new bootstrap.Modal(document.getElementById("passwordModal"));
+    modal.show();
+}
+
+/* Verify password and enter exam */
+document.getElementById("verifyRoomBtn").addEventListener("click", async () => {
+    const password = document.getElementById("roomPasswordInput").value.trim();
+    if (!password) {
+        document.getElementById("passwordError").innerText = "Password cannot be empty";
+        return;
+    }
+
+    try {
+        const res = await fetch(API + "/rooms/check_password.php", {
+            method: "POST",
+            headers,
+            body: JSON.stringify({ room_id: selectedRoomId, password })
+        });
+        const data = await res.json();
+
+        if (data.status) {
+            // Password correct: redirect to exam page
+            window.location.href = `/hub/frontend/exam_page.html?room_id=${selectedRoomId}`;
+        } else {
+            document.getElementById("passwordError").innerText = data.message || "Incorrect password";
+        }
+    } catch (err) {
+        console.error(err);
+        document.getElementById("passwordError").innerText = "Error verifying password";
+    }
+});
+
+// Load rooms on page load
+// Theme handling (persisted)
+const themeToggleBtn = document.getElementById('themeToggle');
+function applyTheme(isDark) {
+    if (isDark) document.body.classList.add('dark');
+    else document.body.classList.remove('dark');
+
+    // Icons
+    document.getElementById('sunIcon').style.display = isDark ? 'none' : 'block';
+    document.getElementById('moonIcon').style.display = isDark ? 'block' : 'none';
+}
+
+// Initialize theme from localStorage or system preference
+(function(){
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') applyTheme(true);
+    else if (saved === 'light') applyTheme(false);
+    else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme(true);
+})();
+
+themeToggleBtn.addEventListener('click', () => {
+  const isDark = !document.body.classList.contains('dark');
+  applyTheme(isDark);
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+});
+
+// --- Premium Upgrade flow ---
+async function initUpgradeFlow() {
+  const btn = document.getElementById('upgradeBtn');
+  const badge = document.getElementById('premiumBadge');
+  if (!btn) return;
+
+  // Payment overlay helpers
+  const overlay = document.getElementById('paymentOverlay');
+  const paymentTitle = document.getElementById('paymentTitle');
+  const paymentSub = document.getElementById('paymentSub');
+  const paymentMeta = document.getElementById('paymentMeta');
+  const paymentRetry = document.getElementById('paymentRetry');
+  const paymentCancel = document.getElementById('paymentCancel');
+  // method buttons (will be created if present)
+  const overlayMethods = document.getElementById('overlayMethods');
+  const overlayTest = document.getElementById('overlayTest');
+
+  // pending management helpers
+  function setPending(ref, email, amount = 500, channel = 'card'){
+    const payload = { reference: String(ref), email: String(email), amount: Number(amount), channel: String(channel), created: Date.now() };
+    localStorage.setItem('unitex_pending_payment', JSON.stringify(payload));
+    // disable upgrade button
+    if (btn) btn.disabled = true;
+    showPendingIndicator();
+  }
+
+  function getPending(){
+    try{ return JSON.parse(localStorage.getItem('unitex_pending_payment') || 'null'); }catch(e){ return null; }
+  }
+
+  function clearPending(){ localStorage.removeItem('unitex_pending_payment'); if (btn) { btn.disabled = false; } hidePendingIndicator(); }
+
+  function showPendingIndicator(){ const badge = document.getElementById('pendingBadge'); if (!badge){ const b = document.createElement('span'); b.id = 'pendingBadge'; b.className = 'badge bg-warning text-dark'; b.style.marginLeft='8px'; b.innerText = 'Payment Pending'; document.querySelector('.topbar .container .topbar-right').prepend(b); } }
+
+  function hidePendingIndicator(){ const b = document.getElementById('pendingBadge'); if (b) b.remove(); }
+
+  function showPaymentOverlay(opts = {}){
+    if (!overlay) return;
+    paymentTitle.innerText = opts.title || 'UNITEX HUB — Initializing payment';
+    paymentSub.innerText = opts.sub || 'Preparing secure checkout. Please do not close this window.';
+    paymentMeta.innerText = opts.meta || `Amount: ₦500 · Secured by Paystack`;
+    paymentRetry.style.display = 'none';
+    overlay.classList.add('visible');
+    overlay.setAttribute('aria-hidden','false');
+    // play small tone to indicate overlay opened
+    try{ playBeep(220, 0.04, 'sine'); }catch(e){}
+  }
+
+  function hidePaymentOverlay(){ if (!overlay) return; overlay.classList.remove('visible'); overlay.setAttribute('aria-hidden','true'); }
+
+  paymentCancel?.addEventListener('click', ()=>{ hidePaymentOverlay(); });
+  paymentRetry?.addEventListener('click', ()=>{ paymentRetry.style.display='none'; initBtnClick(); });
+
+  // clicking outside overlay should NOT close it; instead play a soft noise to indicate action is not allowed
+  overlay?.addEventListener('click', (e)=>{ if (e.target === overlay){ e.stopPropagation(); playBeep(120, 0.06, 'square'); } });
+
+  // simple WebAudio beep helper
+  function playBeep(freq = 440, gain = 0.05, type = 'sine'){
+    try{
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = type; o.frequency.value = freq;
+      g.gain.value = gain;
+      o.connect(g); g.connect(ctx.destination);
+      o.start();
+      setTimeout(()=>{ o.stop(); ctx.close(); }, 120);
+    }catch(e){ /* ignore if audio not available */ }
+  }
+
+  // Check user premium status before wiring up the upgrade flow
+  try {
+    const userRes = await fetch('/hub/api/fetch_user_details.php', { headers });
+    if (!userRes.ok) throw new Error('Authentication required');
+    const userJson = await userRes.json();
+    if (!userJson?.status) return console.warn('Could not fetch user info for upgrade flow');
+
+    const isPremium = (userJson.data?.is_premium === 1 || userJson.data?.is_premium === '1');
+    if (isPremium) {
+      // Hide upgrade button and show a concise professional indicator
+      btn.style.display = 'none';
+      if (badge) { badge.style.display = 'inline-block'; badge.innerText = 'Premium'; }
+      return; // do not attach upgrade click handler
+    } else {
+      if (badge) badge.style.display = 'none';
+      btn.style.display = '';
+    }
+  } catch (err) {
+    console.error('Upgrade pre-check error', err);
+  }
+
+  // Attach click handler when not premium
+  function initBtnClick(){
+    (async ()=>{
+      try {
+        // Show initializing overlay
+        showPaymentOverlay({ title: 'UNITEX HUB — Initializing payment', sub: 'Preparing secure checkout…', meta: 'Amount: ₦500 · Secured by Paystack' });
+
+        // Get logged-in user details (email etc.)
+        const userRes = await fetch('/hub/api/fetch_user_details.php', { headers });
+        if (!userRes.ok) throw new Error('Authentication required');
+        const userJson = await userRes.json();
+        if (!userJson?.status) { throw new Error(userJson?.message || 'Unable to fetch user info'); }
+
+        const email = userJson.data.email;
+
+        // Initialize payment on server (server will use token to identify user)
+        const initRes = await fetch('/hub/api/payments/init_payment.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+          body: JSON.stringify({ email })
+        });
+        const initJson = await initRes.json();
+        if (!initJson || !initJson.status) throw new Error(initJson?.message || 'Error initializing payment');
+
+        const reference = initJson.data.reference || initJson.data?.reference;
+        if (!reference) throw new Error('Payment provider did not return a reference');
+
+        // Persist pending so refresh/resume works
+        setPending(reference, email, 500, 'card');
+
+        // Update overlay to show checkout opening
+        showPaymentOverlay({ title: 'Opening Checkout', sub: 'Secure payment window is opening…', meta: `Ref: ${reference} · Amount: ₦500` });
+
+        const handler = PaystackPop.setup({
+          key: 'pk_test_287a549b5e612b9014698c1d0d30ea5dc0657c51', // Replace with your public key
+          email: email,
+          amount: 500 * 100,
+          ref: reference,
+          callback: function(response){
+            // Redirect to server verify endpoint
+            window.location.href = '/hub/api/payments/verify_payment.php?reference=' + response.reference;
+          },
+          onClose: function(){ hidePaymentOverlay(); alert('Payment window closed.'); }
+        });
+
+        // Try to open iframe; hide overlay shortly after
+        handler.openIframe();
+        setTimeout(()=>{ hidePaymentOverlay(); }, 700);
+
+      } catch (err) {
+        console.error('Upgrade error', err);
+        // Show retry state on overlay
+        showPaymentOverlay({ title: 'Initialization Failed', sub: (err.message || err).toString(), meta: 'Check your network and try again.' });
+        if (paymentRetry) paymentRetry.style.display = 'inline-block';
+      }
+    })();
+  }
+
+  btn.addEventListener('click', initBtnClick);
+
+  // On page load: resume pending payment if any
+  (function resumePending(){
+    const pending = getPending();
+    if (!pending) return;
+    // show overlay and start polling
+    showPaymentOverlay({ title: 'Resume payment', sub: `Resuming payment for ${pending.email}`, meta: `Ref: ${pending.reference} · Amount: ₦${pending.amount}` });
+    startPolling(pending.reference);
+  })();
+
+  // Polling function to check payment status and resume
+  let pollTimer = null;
+  function startPolling(reference){
+    let interval = 3000;
+    let active = true;
+    async function check(){
+      try{
+        const res = await fetch(`/hub/api/payments/verify_payment.php?reference=${encodeURIComponent(reference)}&ajax=1`);
+        const data = await res.json();
+        if (data.payment_status === 'success'){
+          clearPending();
+          showPaymentOverlay({ title: 'Payment Complete', sub: 'Payment confirmed. Redirecting to dashboard…', meta: `Ref: ${reference}` });
+          setTimeout(()=>{ window.location.href = '/hub/frontend/dashboard.html'; }, 2000);
+          active = false; return;
+        }
+        if (data.payment_status === 'failed'){
+          showPaymentOverlay({ title: 'Payment failed', sub: data.message || 'Payment failed. Try another method or retry.', meta: `Ref: ${reference}` });
+          paymentRetry.style.display = 'inline-block';
+          active = false; return;
+        }
+        // pending or network errors: show message and continue
+        showPaymentOverlay({ title: 'Processing Payment', sub: data.message || 'Payment is pending. Waiting for confirmation…', meta: `Ref: ${reference}` });
+      }catch(err){
+        console.error('Poll error', err);
+        showPaymentOverlay({ title: 'Processing Payment', sub: 'Network issue while checking payment. Retrying…', meta: `Ref: ${reference}` });
+      }
+      if (active){ pollTimer = setTimeout(()=>{ interval = Math.min(15000, Math.floor(interval * 1.4)); check(); }, interval); }
+    }
+    check();
+  }
+}
+
+// Initialize features
+initUpgradeFlow();
+
+// If opened with hash #openPayment, open upgrade overlay automatically
+window.addEventListener('load', ()=>{
+  if (location.hash === '#openPayment'){
+    const btn = document.getElementById('upgradeBtn');
+    if (btn) { setTimeout(()=>{ btn.click(); }, 250); }
+  }
+});
+
+loadRooms();
+// Set AI title to include user's first name (e.g., "Alice Learning stats")
+async function setAiTitle() {
+    try {
+        const res = await fetch(API + '/users/profile.php', { headers });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data && data.status && data.user && data.user.name) {
+            const first = (data.user.name || '').split(' ')[0] || data.user.name;
+            const el = document.getElementById('aiTitle');
+            if (el) el.innerText = `${first} Learning stats`;
+        }
+    } catch (err) { console.error('setAiTitle error', err); }
+}
+
+setAiTitle();
+// Populate profile avatar and hook up profile menu
+async function populateTopProfile(){
+  try {
+    const res = await fetch(API + '/users/profile.php', { headers });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!(data && data.status && data.user)) return;
+    const name = data.user.name || 'User';
+    const email = data.user.email || '';
+    const initials = name.split(' ').slice(0,2).map(s=>s.charAt(0).toUpperCase()).join('');
+    const avatar = document.getElementById('profileAvatar');
+    if (avatar) {
+        // If user has a custom profile_pic, show the image instead of initials
+        if (data.user.profile_pic) {
+          // Cache-bust so newly uploaded images show immediately
+          const src = `/hub/uploads/profile_pics/${data.user.profile_pic}?t=${Date.now()}`;
+          avatar.innerHTML = `<img src="${src}" alt="${name}" />`;
+          avatar.style.background = 'transparent';
+          avatar.style.color = '';
+        } else {
+          avatar.textContent = initials || 'U';
+          avatar.title = name;
+          avatar.style.background = 'var(--muted)';
+          avatar.style.color = '#fff';
+        }
+    }
+
+    // hook menu actions
+    const menu = document.getElementById('profileMenu');
+    const avatarWrap = document.getElementById('topProfile');
+    if (avatarWrap && menu) {
+      avatarWrap.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        menu.classList.toggle('d-none');
+      });
+      // keyboard toggle (Enter / Space)
+      const avatarEl = document.getElementById('profileAvatar');
+      if (avatarEl) avatarEl.addEventListener('keydown', (ev)=>{
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); menu.classList.toggle('d-none'); }
+      });
+      document.addEventListener('click', ()=>{ if (!menu.classList.contains('d-none')) menu.classList.add('d-none'); });
+    }
+
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) logoutBtn.addEventListener('click', ()=>{ localStorage.removeItem('token'); window.location.href = 'login.html'; });
+  } catch (err) { console.error('populateTopProfile error', err); }
+}
+
+populateTopProfile();
+// Load user progress stats for AI card
+async function loadUserProgress() {
+    try {
+        const res = await fetch(API + '/practices/user_progress.php', { headers, credentials: 'same-origin' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        if (!data.status) {
+            console.warn('User progress API:', data.message);
+            const tbodyEl = document.querySelector('#progressTable tbody');
+            if (tbodyEl) tbodyEl.innerHTML = `<tr><td colspan="5" class="text-muted">${data.message || 'No progress'}</td></tr>`;
+            return;
+        }
+
+        const rows = data.data || [];
+
+        // Fill table
+        const tbody = document.querySelector('#progressTable tbody');
+        if (tbody) {
+            if (!rows.length) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-muted">No progress yet</td></tr>`;
+            } else {
+                tbody.innerHTML = rows.map(r=>`<tr>
+                    <td>${r.topic_name || '—'}</td>
+                    <td>${r.attempts}</td>
+                    <td>${Math.round(r.average_score)}%</td>
+                    
+                </tr>`).join('');
+            }
+        }
+
+        // Compute per-user average pass rate (average of average_score across user's topics)
+        const avgPass = rows.length ? Math.round(rows.reduce((s,x)=>s + (Number(x.average_score)||0),0)/rows.length) : 0;
+        const avgPassEl = document.querySelector('#avgPassStat div');
+        if (avgPassEl) avgPassEl.innerText = `${avgPass}%`;
+
+        // Compute per-user average attempts (average of attempts across topics)
+        const avgAttempts = rows.length ? (rows.reduce((s,x)=>s + (Number(x.attempts)||0),0) / rows.length) : 0;
+        const avgTimeEl = document.querySelector('#avgTimeStat div');
+        if (avgTimeEl) avgTimeEl.innerText = `${Math.round(avgAttempts*10)/10}`;
+
+    } catch (err) {
+        console.error('Error loading user progress', err);
+        const tb = document.querySelector('#progressTable tbody');
+        if (tb) tb.innerHTML = `<tr><td colspan="5" class="text-danger">Failed to load progress</td></tr>`;
+    }
+}
+
+// Load progress after rooms & theme init
+loadUserProgress();
+
+// Global progress endpoint is available but AI card shows per-user stats by default
+
+// Animate AI CTA cards on scroll
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) en.target.classList.add('visible');
+      else en.target.classList.remove('visible');
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.fade-on-scroll').forEach(el => observer.observe(el));
+});
+</script>
+
+<!-- GST Book Review Download Card Section -->
+<section class="gst-card-section">
+  <div class="gst-container">
+    <div class="gst-card">
+      <div class="gst-card-icon">📚</div>
+      <h2 class="gst-card-title">GST Book Review</h2>
+      <p class="gst-card-desc">
+        Order your GST book review from the UNITEX HUB Academic Team.
+        Available for 100–300 level students: ₦1,000 (softcopy) | ₦2,000 (handwritten) only.
+      </p>
+      <a href="https://wa.me/2347040275777?text=Good%20day%20sir/ma.%0AI%20saw%20a%20post%20about%20the%20GST%20book%20review.%0AI%20am%20interested%20in%20ordering%20it%20and%20would%20like%20to%20know%20more%20about%20how%20to%20get%20it.%0AThank%20you%20sir." 
+         class="gst-download-btn">Order Now</a>
+    </div>
+  </div>
+</section>
+
+<style>
+:root {
+  --bg-light: #f9f9f9;
+  --bg-dark: #1e1e2f;
+  --card-light: #0ff1ce;
+  --card-dark: #0a192f;
+  --text-light: #111;
+  --text-dark: #f0f0f0;
+  --accent: #4f46e5;
+  --shadow-light: rgba(0,255,255,0.2);
+  --shadow-dark: rgba(0,255,255,0.4);
+}
+
+.gst-card-section {
+  display: flex;
+  justify-content: center;
+  padding: 80px 20px;
+  background-color: var(--bg-light);
+  transition: background-color 0.3s;
+}
+
+body.dark .gst-card-section {
+  background-color: var(--bg-dark);
+}
+
+.gst-card {
+  background: var(--card-light);
+  color: #fff;
+  border-radius: 20px;
+  padding: 40px 30px;
+  max-width: 350px;
+  text-align: center;
+  box-shadow: 0 0 20px var(--shadow-light);
+  transform: translateY(0);
+  transition: transform 0.4s, box-shadow 0.4s, background 0.3s;
+  opacity: 0;
+  animation: gstFadeIn 1s forwards;
+  animation-delay: 0.3s;
+}
+
+body.dark .gst-card {
+  background: var(--card-dark);
+  box-shadow: 0 0 20px var(--shadow-dark);
+}
+
+.gst-card:hover {
+  transform: translateY(-15px) scale(1.03);
+  box-shadow: 0 0 40px var(--shadow-light);
+}
+
+.gst-card-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.gst-card-title {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.gst-card-desc {
+  font-size: 1rem;
+  margin-bottom: 25px;
+  line-height: 1.4;
+}
+
+.gst-download-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.gst-download-btn:hover {
+  background: #3730a3;
+  transform: scale(1.05);
+}
+
+@keyframes gstFadeIn {
+  to { opacity: 1; }
+}
+</style>
+
+
+
+<!-- ===== Footer Section ===== -->
+<footer class="footer">
+  <div class="container footer-container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">UNITEX HUB</a>
+        <p>Empowering Students to Prepare, Practice, and Excel.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="unitex.hub.about.html">About Us</a></li>
+            <li><a href="unitex.hub.blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="unitex.hub.help.html">Help Center</a></li>
+            <li><a href="unitex.hub.faq.html">FAQs</a></li>
+            <li><a href="unitex.hub,terms.html">Terms & Privacy</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Follow Us</h4>
+          <ul class="social-links">
+            <li><a href="https://web.facebook.com/people/Unitex-Hub-Learn-Smarter/61582938541876/" target="_blank">Facebook</a></li>
+            <li><a href="https://x.com/Unitexhub2025?s=21" target="_blank">Twitter</a></li>
+            <li><a href="https://www.instagram.com/unitexhub2025?igsh=MXFuZHBzOWJtcm5jdw%3D%3D&utm_source=qr" target="_blank">Instagram</a></li>
+            <li><a href="#" target="_blank">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <?= date('Y') ?> UNITEX HUB. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Footer CSS ===== -->
+<style>
+.footer {
+  background-color: var(--color-dark-400);
+  color: var(--color-gray-100);
+  padding: 4rem 0 2rem;
+  font-size: 0.9rem;
+}
+.footer a {
+  color: var(--color-gray-100);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer a:hover {
+  color: var(--color-blue-300);
+}
+.footer-container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.footer-brand {
+  flex: 1 1 20rem;
+}
+.footer-brand p {
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+.footer-links {
+  display: flex;
+  flex: 2 1 40rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.footer-column h4 {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--color-blue-300);
+}
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-column ul li {
+  margin-bottom: 0.5rem;
+}
+.social-links li {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 1rem;
+}
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-links {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .social-links li {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+}
+</style>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog Posts | UNITEX HUB</title>
+
+
+<meta name="description" content="UNITEX HUB is a digital learning and innovation platform providing university CBT exam preparation tools and resources for learners in Nigeria. It empowers students and creators with the support, tools, and guidance they need to excel in exams such as JAMB and other university CBT assessments.">
+<meta name="keywords" content="UNITEX HUB offers powerful academic performance tools from University CBT, including CGPA and GPA calculators, semester GPA trackers, and comprehensive CGPA analysis. Designed for students, these tools help you monitor and optimize your academic progress throughout university. Developed by Emmanuel Etim, UNITEX HUB empowers learners with practical education tools to track and improve their GPA, plan their semesters, and achieve academic success.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="UNITEX HUB">
+<link rel="canonical" href="http://localhost/hub/frontend/post.html">
+
+<!--FAVICON-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost/hub/frontend/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost/hub/frontend/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost/hub/frontend/favicon_io/favicon-16x16.png">
+<link rel="manifest" href="http://localhost/hub/frontend/favicon_io/site.webmanifest">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+<meta property="og:image" content="http://localhost/hub/frontend/assets/unitex.png">
+
+<!-- Twitter (X) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="">
+<meta name="twitter:image" content="http://localhost/hub/frontend/assets/im.png">
+   <meta name="msvalidate.01" content="7CFE9C31DF8FDE2D5E752F310DC6AA54" />
+
+<!-- Bootstrap & Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #fffaf3;
+  --text: #4e3620;
+  --card: #fff3e0;
+  --accent: #ffb347;
+}
+body.dark {
+  --bg: #0f172a;
+  --text: #e5e7eb;
+  --card: #1e293b;
+  --accent: #38bdf8;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0 15px;
+  transition: 0.3s ease;
+}
+
+/* Header */
+header {
+  padding: 30px 0;
+  text-align: center;
+}
+.mode-toggle {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+  font-size: 1.3rem;
+}
+
+/* Blog Section */
+.blog-section {
+  max-width: 900px;
+  margin: 30px auto;
+}
+.blog-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  border-left: 4px solid var(--accent);
+  padding-left: 15px;
+  background: var(--card);
+  border-radius: 8px;
+  padding: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.5s ease;
+}
+.blog-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.blog-item img {
+  width: 120px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.blog-info h6 {
+  margin: 0 0 5px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.blog-info p {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+.blog-info a {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+.blog-info a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+footer {
+  background: var(--card);
+  padding: 15px;
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.9rem;
+}
+
+/* Progress bar */
+#progress {
+  height: 4px;
+  background: var(--accent);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  z-index: 9999;
+}
+</style>
+</head>
+<body>
+
+  <div id="ai-loader">
+  <div class="scanner">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+  <div class="loader-text" id="loaderText">Welcome back…</div>
+</div>
+
+<style>
+#ai-loader {
+  position: fixed;
+  inset: 0;
+  background: #0c0c0c;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow: hidden;
+  color: #00fff0;
+  font-family: 'Segoe UI', sans-serif;
+  transition: opacity 0.5s ease;
+}
+
+body.no-scroll { overflow: hidden; }
+
+.scanner {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 25px;
+}
+
+.bar {
+  width: 10px;
+  height: 50px;
+  background: #00fff0;
+  animation: scan 1s infinite ease-in-out;
+  border-radius: 4px;
+  opacity: 0.4;
+}
+
+.bar:nth-child(1) { animation-delay: 0s; }
+.bar:nth-child(2) { animation-delay: 0.2s; }
+.bar:nth-child(3) { animation-delay: 0.4s; }
+.bar:nth-child(4) { animation-delay: 0.6s; }
+
+@keyframes scan {
+  0%, 100% { transform: scaleY(0.4); opacity:0.3; background:#00fff0; }
+  50% { transform: scaleY(1.2); opacity:1; background:#ff00ff; }
+}
+
+.loader-text {
+  font-size: 1.2rem;
+  color: #00fff0;
+  text-align: center;
+  min-height: 1.2em;
+}
+
+@media(max-width:500px){
+  .bar { width:6px; height:35px; }
+  .loader-text { font-size:1rem; }
+}
+</style>
+
+<script>
+document.body.classList.add('no-scroll');
+
+const loader = document.getElementById('ai-loader');
+const textEl = document.getElementById('loaderText');
+
+const KEY = 'dashboard_last_seen';
+const LIMIT = 5*60*1000; // 5 minutes
+const now = Date.now();
+const last = localStorage.getItem(KEY);
+const fast = last && (now - last < LIMIT);
+
+localStorage.setItem(KEY, now);
+
+const messages = fast
+  ? [ 'UNITEX HUB BLOG...', 'Almost ready…']
+  : ['Initializing Data modules…', 'Scanning your data…', 'Finalizing Blogpost....'];
+
+let index = 0;
+textEl.textContent = messages[index];
+
+const interval = setInterval(() => {
+  index++;
+  if(index < messages.length){
+    textEl.textContent = messages[index];
+  } else {
+    clearInterval(interval);
+  }
+}, fast ? 700 : 1500);
+
+window.addEventListener('load', () => {
+  setTimeout(()=>{
+    loader.style.opacity='0';
+    setTimeout(()=>{
+      loader.remove();
+      document.body.classList.remove('no-scroll');
+    },400);
+  }, fast ? 1000 : 4000);
+});
+</script>
+
+
+<div id="progress"></div>
+
+<header>
+  <h1>UNITEX HUB BLOG</h1>
+  <p>Learn smarter. Stay informed.</p>
+  <i class="bi bi-moon-stars-fill mode-toggle" id="modeToggle"></i>
+</header>
+
+<section class="blog-section" id="posts"></section>
+<div id="error" class="text-danger text-center"></div>
+
+
+<script>
+// Dark mode persistence
+const toggle = document.getElementById('modeToggle');
+if (localStorage.getItem('mode') === 'dark') document.body.classList.add('dark');
+toggle.onclick = () => {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('mode', document.body.classList.contains('dark') ? 'dark' : 'light');
+};
+
+// Base path for uploaded images
+const imageBase = '/hub/api/post/uploads/';
+
+// Fetch posts
+fetch('/hub/api/post/get_posts.php')
+.then(res => {
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    return res.json();
+})
+.then(posts => {
+    const container = document.getElementById('posts');
+    if (posts.length === 0) {
+        container.innerHTML = '<p class="text-center">No posts found.</p>';
+        return;
+    }
+    posts.forEach(post => {
+        const div = document.createElement('div');
+        div.classList.add('blog-item');
+
+        const stripHtml = html => {
+            const tmp = document.createElement('div'); tmp.innerHTML = html || '';
+            return (tmp.textContent || tmp.innerText || '').trim();
+        }
+        const fullText = stripHtml(post.message || '');
+        const excerpt = fullText.substring(0, 90);
+        const safe = s => (s||'').replace(/"/g,'&quot;').replace(/'/g,"&#39;");
+
+        div.innerHTML = `
+          <img src="${imageBase + post.image1}" alt="${post.title}" loading="lazy">
+          <div class="blog-info">
+            <h6>${post.title}</h6>
+            <p>${excerpt}${fullText.length > excerpt.length ? '...' : ''}</p>
+            <a href="seemore.html?id=${post.id}">Read more →</a>
+            <div class="share-actions mt-2">
+              <a href="#" class="share-btn fb" data-id="${post.id}" data-title="${safe(post.title)}" data-msg="${safe(excerpt)}" title="Share on Facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="share-btn tw" data-id="${post.id}" data-title="${safe(post.title)}" data-msg="${safe(excerpt)}" title="Share on Twitter"><i class="bi bi-twitter"></i></a>
+              <a href="#" class="share-btn wa" data-id="${post.id}" data-title="${safe(post.title)}" data-msg="${safe(excerpt)}" title="Share on WhatsApp"><i class="bi bi-whatsapp"></i></a>
+              <a href="#" class="share-btn tg" data-id="${post.id}" data-title="${safe(post.title)}" data-msg="${safe(excerpt)}" title="Share on Telegram"><i class="bi bi-telegram"></i></a>
+              <a href="#" class="share-btn cp" data-id="${post.id}" data-title="${safe(post.title)}" data-msg="${safe(excerpt)}" title="Copy share text"><i class="bi bi-clipboard"></i></a>
+            </div>
+          </div>
+        `;
+        container.appendChild(div);
+    });
+    // Add JSON-LD structured data for the blog and posts (helps Google show rich results)
+    try{
+      const ld = {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "url": window.location.origin + window.location.pathname,
+        "name": "UNITEX HUB Blog",
+        "description": document.querySelector('meta[name=description]')?.getAttribute('content') || '',
+        "publisher": { "@type": "Organization", "name": "UNITEX HUB" },
+        "blogPost": posts.slice(0,20).map(p => ({
+          "@type": "BlogPosting",
+          "headline": p.title,
+          "image": window.location.origin + '/hub/api/post/uploads/' + (p.image1 || ''),
+          "description": (p.message||'').replace(/<[^>]*>?/gm,'').slice(0,160),
+          "url": window.location.origin + '/hub/frontend/seemore.html?slug=' + encodeURIComponent((p.title||'').toLowerCase().replace(/\s+/g,'-')) + '&id=' + encodeURIComponent(p.id),
+          "datePublished": p.created_at || undefined
+        }))
+      };
+      const s = document.createElement('script');
+      s.type = 'application/ld+json';
+      s.text = JSON.stringify(ld);
+      document.head.appendChild(s);
+    }catch(e){ console.warn('JSON-LD create failed', e); }
+
+    // Animate items
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => e.isIntersecting && e.target.classList.add('show'));
+    });
+    document.querySelectorAll('.blog-item').forEach(el => observer.observe(el));
+
+    // Add share handlers (delegated)
+    function slugify(t){ return (t||'').toString().toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-]/g,'').replace(/\-+/g,'-').replace(/^\-+|\-+$/g,'').slice(0,80); }
+    function showToast(msg){ const t=document.createElement('div'); t.textContent=msg; Object.assign(t.style,{position:'fixed',right:'20px',top:'20px',background:'rgba(0,0,0,0.8)',color:'#fff',padding:'8px 12px',borderRadius:'8px',zIndex:99999}); document.body.appendChild(t); setTimeout(()=>{ t.style.transition='opacity .3s'; t.style.opacity='0'; setTimeout(()=>t.remove(),300); },1400); }
+
+    container.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.share-btn');
+      if(!btn) return;
+      e.preventDefault();
+      const id = btn.getAttribute('data-id');
+      const title = btn.getAttribute('data-title') || '';
+      const msg = btn.getAttribute('data-msg') || '';
+      const slug = slugify(title);
+      const url = window.location.origin + '/hub/frontend/seemore.html?slug=' + encodeURIComponent(slug) + '&id=' + encodeURIComponent(id) + '&msg=' + encodeURIComponent(msg);
+      const fullShare = `${title} — ${msg}`;
+
+      // Try native share
+      const tryNative = () => navigator.share ? navigator.share({title, text: msg, url}).then(()=>true).catch(()=>false) : Promise.resolve(false);
+
+      if(btn.classList.contains('fb')){
+        tryNative().then(ok=>{ if(!ok) window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(fullShare)}`,'_blank','noopener'); });
+      } else if(btn.classList.contains('tw')){
+        tryNative().then(ok=>{ if(!ok) window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(fullShare)}&url=${encodeURIComponent(url)}`,'_blank','noopener'); });
+      } else if(btn.classList.contains('wa')){
+        tryNative().then(ok=>{ if(!ok) window.open(`https://wa.me/?text=${encodeURIComponent(fullShare + ' ' + url)}`,'_blank','noopener'); });
+      } else if(btn.classList.contains('tg')){
+        tryNative().then(ok=>{ if(!ok) window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(fullShare)}`,'_blank','noopener'); });
+      } else if(btn.classList.contains('cp')){
+        const toCopy = `${fullShare}\n${url}`;
+        if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(toCopy).then(()=> showToast('Copied to clipboard')).catch(()=>{ window.prompt('Copy the share text:', toCopy); }); }
+        else window.prompt('Copy the share text:', toCopy);
+      }
+    });
+})
+.catch(err => {
+    console.error('Error fetching posts:', err);
+    document.getElementById('error').innerText = 'Error loading posts: ' + err.message;
+});
+
+// Scroll progress
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  document.getElementById('progress').style.width =
+    (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + '%';
+});
+</script>
+
+
+
+<!-- ===== Footer Section ===== -->
+<footer class="footer">
+  <div class="container footer-container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">UNITEX HUB</a>
+        <p>Empowering Students to Prepare, Practice, and Excel.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="unitex.hub.about.html">About Us</a></li>
+            <li><a href="unitex.hub.blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="unitex.hub.help.html">Help Center</a></li>
+            <li><a href="unitex.hub.faq.html">FAQs</a></li>
+            <li><a href="unitex.hub,terms.html">Terms & Privacy</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Follow Us</h4>
+          <ul class="social-links">
+            <li><a href="https://web.facebook.com/people/Unitex-Hub-Learn-Smarter/61582938541876/" target="_blank">Facebook</a></li>
+            <li><a href="https://x.com/Unitexhub2025?s=21" target="_blank">Twitter</a></li>
+            <li><a href="https://www.instagram.com/unitexhub2025?igsh=MXFuZHBzOWJtcm5jdw%3D%3D&utm_source=qr" target="_blank">Instagram</a></li>
+            <li><a href="#" target="_blank">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <?= date('Y') ?> UNITEX HUB. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Footer CSS ===== -->
+<style>
+.footer {
+  background-color: var(--color-dark-400);
+  color: var(--color-gray-100);
+  padding: 4rem 0 2rem;
+  font-size: 0.9rem;
+}
+.footer a {
+  color: var(--color-gray-100);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer a:hover {
+  color: var(--color-blue-300);
+}
+.footer-container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.footer-brand {
+  flex: 1 1 20rem;
+}
+.footer-brand p {
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+.footer-links {
+  display: flex;
+  flex: 2 1 40rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.footer-column h4 {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--color-blue-300);
+}
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-column ul li {
+  margin-bottom: 0.5rem;
+}
+.social-links li {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 1rem;
+}
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-links {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .social-links li {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+}
+</style>
+
+</body>
+</html>

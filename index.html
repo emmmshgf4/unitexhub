@@ -1,0 +1,1131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNITEX HUB - Learning Smarter</title>
+<meta name="description" content="UNITEX HUB is a digital learning and innovation platform providing university CBT exam preparation tools and resources for learners in Nigeria. It empowers students and creators with the support, tools, and guidance they need to excel in exams such as JAMB and other university CBT assessments.">
+<meta name="keywords" content="unitex hub, online learning, innovation platform, educoach emmanuel etim, education, digital learning, skill development">
+<meta name="robots" content="index, follow">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost/hub/frontend/favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost/hub/frontend/favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost/hub/frontend/favicon_io/favicon-16x16.png">
+<link rel="manifest" href="http://localhost/hub/frontend/favicon_io/site.webmanifest">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+<meta property="og:image" content="http://localhost/hub/frontend/assets/unitex.png">
+
+<!-- Twitter (X) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="">
+<meta name="twitter:image" content="http://localhost/hub/frontend/assets/im.png">
+   <meta name="msvalidate.01" content="7CFE9C31DF8FDE2D5E752F310DC6AA54" />
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-dQ9fXjz...YOUR-INTEGRITY-HERE..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap");
+
+:root {
+   --color-gray-100: hsl(220, 12%, 98%);
+   --color-gray-200: hsl(220, 12%, 90%);
+   --color-gray-300: hsl(220, 12%, 85%);
+   --color-gray-400: hsl(220, 12%, 65%);
+   --color-gray-500: hsl(220, 12%, 45%);
+   --color-dark-100: hsl(240, 10%, 15%);
+   --color-dark-200: hsl(240, 10%, 12%);
+   --color-dark-300: hsl(240, 10%, 9%);
+   --color-dark-400: hsl(240, 10%, 6%);
+   --color-dark-500: hsl(240, 10%, 3%);
+   --color-blue-100: hsl(217, 80%, 65%);
+   --color-blue-200: hsl(217, 80%, 60%);
+   --color-blue-300: hsl(217, 80%, 55%);
+   --color-blue-400: hsl(217, 80%, 50%);
+   --color-blue-500: hsl(217, 80%, 45%);
+   --shadow-small: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+   --shadow-medium: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+   --shadow-large: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+   --shadow-extra: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+
+*,
+*::before,
+*::after {
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+   list-style: none;
+   text-decoration: none;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   text-rendering: optimizeLegibility;
+}
+
+html {
+   font-size: 100%;
+   box-sizing: inherit;
+   scroll-behavior: smooth;
+   height: -webkit-fill-available;
+}
+
+body {
+   font-family: "Roboto", ui-sans-serif, sans-serif;
+   font-size: clamp(1rem, 2vw, 1.125rem);
+   font-weight: 400;
+   line-height: 1.5;
+   color: var(--color-gray-100);
+   background-color: var(--color-dark-500);
+}
+
+main, section { overflow: hidden; }
+
+a, button {
+   cursor: pointer;
+   user-select: none;
+   white-space: nowrap;
+   border: none;
+   outline: none;
+   color: inherit;
+   background: unset;
+}
+
+h1, h2, h3, h4, h5 { font-family: inherit; line-height: 1.25; word-wrap: break-word; }
+
+p, li { font-family: inherit; line-height: 1.5; word-wrap: break-word; }
+
+img, svg, picture {
+   max-width: 100%;
+   height: auto;
+   vertical-align: middle;
+   object-fit: cover;
+}
+
+.section { padding-block: 6rem 3rem; }
+.container { max-width: 75rem; margin-inline: auto; padding-inline: 1.5rem; }
+.center { text-align: center; }
+.truncate { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+.title-large { font-size: clamp(2.65rem, 6vw, 4rem); font-weight: 700; line-height: 1.15; }
+
+.text-base { font-size: 1rem; line-height: 1.5; }
+
+.btn { display: inline-flex; font-family: inherit; font-size: 1rem; font-weight: 500; align-items: center; justify-content: center; padding: 0.5rem 1.25rem; border-radius: 3rem; transition: all 0.25s ease; }
+.btn-primary { color: var(--color-gray-100); background-color: var(--color-blue-300); box-shadow: var(--shadow-medium); }
+.btn-neutral { color: var(--color-dark-300); background-color: var(--color-blue-100); box-shadow: var(--shadow-medium); }
+
+.header {
+   position: fixed; top: 0; left: 0; width: 100%; z-index: 100; transition: all 0.35s ease;
+}
+.header.on-scroll { background-color: var(--color-dark-400); box-shadow: var(--shadow-medium); }
+
+.navbar { display: flex; align-items: center; justify-content: baseline; column-gap: 1rem; width: 100%; height: 4rem; margin-inline: auto; }
+.brand { font-size: 1.5rem; text-decoration: none; font-weight: 600; text-transform: uppercase; color: var(--color-blue-100); }
+
+.menu { position: fixed;  top: -100%; left: 0; width: 100%; padding-block: 4rem; background-color: var(--color-dark-400); box-shadow: var(--shadow-medium); transition: all 0.3s ease; }
+.menu.is-active { top: 0; }
+.menu-inner { display: flex;  flex-direction: column; align-items: center; row-gap: 1.25rem; }
+.menu-link { font-size: 1rem; transition: 0.4s ease-in-out; font-weight: 500; text-decoration: none; text-transform: uppercase; color: var(--color-gray-100); }
+.menu-block { margin-left: auto; }
+.menu-link:hover {
+  color: #0066cc;
+}
+ #theme-toggle {
+    background-color: #fff !important; /* White background */
+    color: #111 !important;           /* Dark text */
+    border: 1px solid #ccc;           /* Optional light border */
+    border-radius: 6px;               /* Optional rounded corners */
+    font-weight: 600;
+    padding: 6px 12px;
+    transition: all 0.3s ease;
+  }
+
+  /* Hover effect */
+  #theme-toggle:hover {
+    background-color: #f0f0f0; /* Slight gray on hover */
+    color: #000;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+
+.burger { cursor: pointer; width: 1.5rem; height: 1rem; position: relative; z-index: 10; }
+.burger-line { position: absolute; display: block; left: 0; opacity: 1; width: 100%; height: 2px; background-color: var(--color-gray-100); transition: all 0.25s ease; }
+.burger-line:nth-child(1) { top: 0px; }
+.burger-line:nth-child(2) { top: 0.5rem; width: 70%; }
+.burger-line:nth-child(3) { top: 1rem; }
+
+.burger.is-active .burger-line:nth-child(1) { top: 0.5rem; transform: rotate(135deg); }
+.burger.is-active .burger-line:nth-child(2) { left: -1rem; opacity: 0; }
+.burger.is-active .burger-line:nth-child(3) { top: 0.5rem; transform: rotate(-135deg); }
+
+.overlay { position: fixed; display: none; inset: 0; background-color: black; opacity: 0.5; transition: all 0.3s ease; z-index: -2; }
+.overlay.is-active { display: block; }
+
+.banner-column { display: grid; align-items: center; row-gap: 3rem; column-gap: 2rem; }
+@media screen and (min-width: 48rem) { .banner-column { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 4rem; } }
+@media screen and (min-width: 64rem) { .banner-column { grid-template-columns: 1fr max-content; column-gap: 4rem; } }
+
+.banner-image { display: block; max-width: 90%; height: auto; object-fit: cover; justify-self: center; margin-inline: auto; }
+@media screen and (min-width: 48rem) { .banner-image { max-width: 30rem; order: 1; } }
+@media screen and (min-width: 64rem) { .banner-image { max-width: 36rem; margin-right: 5rem; } }
+
+.banner-inner { display: flex; flex-direction: column; row-gap: 1.5rem; }
+.banner-link { position: absolute; display: grid; top: 30%; right: 1.5rem; row-gap: 0.5rem; visibility: hidden; }
+@media screen and (min-width: 64rem) { .banner-link { visibility: visible; } }
+.banner-link > * { font-size: 1.25rem; color: var(--color-gray-100); }
+.banner-link::before, .banner-link::after { content: ""; position: absolute; width: 4rem; height: 1.5px; transform: rotate(90deg); background: var(--color-gray-100); }
+.banner-link::before { top: -3rem; }
+.banner-link::after { bottom: -3rem; }
+
+
+.counter-section {
+    text-align: center;
+    padding: 40px 10px;
+    margin: 40px 0;
+    background: var(--color-dark-400);
+   
+    box-shadow: var(--shadow-medium);
+}
+
+body.light-mode .counter-section {
+    background: var(--color-dark-200);
+}
+
+.counter-title {
+    color: var(--color-gray-100);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.counter-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.counter-box {
+    background: var(--color-dark-300);
+    border: 1px solid var(--color-gray-400);
+    width: 220px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-small);
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s ease;
+}
+
+body.light-mode .counter-box {
+    background: var(--color-dark-100);
+    border-color: var(--color-gray-300);
+}
+
+/* Show class triggers fade-in + slide */
+.counter-box.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.counter-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+
+.counter-box h3 {
+    color: var(--color-gray-100);
+    margin-bottom: 8px;
+}
+
+.counter-number {
+    color: var(--color-blue-300);
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+
+
+
+</style>
+</head>
+<body>
+    <!-- Page Loader with Logo -->
+<div id="pageLoader">
+  <img src="http://localhost/hub/frontend/assets/unitex.png" alt="UNITEX HUB Logo" class="loader-logo">
+</div>
+
+<style>
+/* Loader Overlay */
+#pageLoader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff; /* Light mode */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  transition: opacity 0.5s ease;
+}
+
+/* Dark mode support */
+body.dark #pageLoader {
+  background: #0b0b3b;
+}
+
+/* Logo animation */
+.loader-logo {
+  width: 150px;  /* Bigger size */
+  height: 150px; /* Bigger size */
+  animation: spin 1.5s linear infinite;
+}
+
+/* Spin animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+
+<script>
+// Hide loader when page is fully loaded
+window.addEventListener('load', function() {
+  const loader = document.getElementById('pageLoader');
+  loader.style.opacity = '0';
+  setTimeout(() => loader.style.display = 'none', 500);
+});
+</script>
+
+<!-- Header section -->
+<header class="header" id="header">
+   <nav class="navbar container">
+      <a href="#" class="brand">UNITEX HUB</a>
+      <div class="burger" id="burger">
+         <span class="burger-line"></span>
+         <span class="burger-line"></span>
+         <span class="burger-line"></span>
+      </div>
+      <div class="menu" id="menu">
+         <ul class="menu-inner">
+            <li class="menu-item"><a href="index.html" class="menu-link">Home</a></li>
+            <li class="menu-item"><a href="unitex.hub.blog.html" class="menu-link">Article</a></li>
+  
+            <button id="theme-toggle" class="btn btn-darken">Dark Mode</button>
+         </ul>
+      </div>
+      <span class="overlay"></span>
+      <button type="button" class="menu-block">
+         <a href="unitex.hub.signup.html" class="btn btn-neutral">Register</a>
+      </button>
+   </nav>
+</header>
+<!-- Add this button somewhere in your header, e.g., next to Register -->
+
+
+<!-- Main section -->
+<main class="main">
+   <section class="section banner-section">
+      <div class="container banner-column">
+         <img src="http://localhost/hub/frontend/assets/uni.png" class="banner-image" width="480" height="360" fetchpriority="high" alt="banner image">
+         <div class="banner-inner">
+            <h1 class="title-large">UNITEX HUB </h1>
+            <p class="text-base font-normal">
+               Prepare, Practice, and Excel in your Campus CBT Exams with UNITEX HUB's Smart Learning Platform.
+            </p>
+            <button><a href="unitex.hub.login.html" class="btn btn-primary">
+             LOGIN <i class="bx bx-chevron-right"></i>
+            </a></button>
+         </div>
+         <div class="banner-link">
+            <a href="https://web.facebook.com/people/Unitex-Hub-Learn-Smarter/61582938541876/" title=""><i class="bx bxl-facebook"></i></a>
+            <a href="https://www.instagram.com/unitexhub2025?igsh=MXFuZHBzOWJtcm5jdw%3D%3D&utm_source=qr" title=""><i class="bx bxl-instagram"></i></a>
+   
+            <a href="https://x.com/Unitexhub2025?s=21" title=""><i class="bx bxl-twitter"></i></a>
+         </div>
+      </div>
+   </section>
+</main>
+
+<script>
+// DOM elements
+const navbarMenu = document.getElementById("menu");
+const burgerMenu = document.getElementById("burger");
+const headerMenu = document.getElementById("header");
+const bgOverlay = document.querySelector(".overlay");
+
+// Toggle navbar menu
+const toggleNavbarMenu = () => {
+   navbarMenu.classList.toggle("is-active");
+   burgerMenu.classList.toggle("is-active");
+   bgOverlay.classList.toggle("is-active");
+};
+
+// Burger click
+burgerMenu.addEventListener("click", toggleNavbarMenu);
+
+// Overlay click
+bgOverlay.addEventListener("click", toggleNavbarMenu);
+
+// Change header background on scroll
+window.addEventListener("scroll", () => {
+   if (window.scrollY >= 75) {
+      headerMenu.classList.add("on-scroll");
+   } else {
+      headerMenu.classList.remove("on-scroll");
+   }
+});
+
+// Reset menu on window resize
+window.addEventListener("resize", () => {
+   if (window.innerWidth >= 768) {
+      navbarMenu.classList.remove("is-active");
+      burgerMenu.classList.remove("is-active");
+      bgOverlay.classList.remove("is-active");
+   }
+});
+</script>
+
+
+<script>
+// Dark/Light Mode Toggle
+const themeToggleBtn = document.getElementById("theme-toggle");
+
+// Load saved theme from localStorage
+if (localStorage.getItem("theme") === "light") {
+    document.body.classList.add("light-mode");
+    themeToggleBtn.textContent = "Dark Mode";
+}
+
+themeToggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+    const isLight = document.body.classList.contains("light-mode");
+    themeToggleBtn.textContent = isLight ? "Dark Mode" : "Light Mode";
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+});
+</script>
+
+<style>
+/* Minimal CSS for light mode */
+body.light-mode {
+    --color-gray-100: hsl(220, 12%, 10%);
+    --color-gray-200: hsl(220, 12%, 20%);
+    --color-gray-300: hsl(220, 12%, 30%);
+    --color-gray-400: hsl(220, 12%, 50%);
+    --color-gray-500: hsl(220, 12%, 70%);
+    --color-dark-100: hsl(0,0%,98%);
+    --color-dark-200: hsl(0,0%,95%);
+    --color-dark-300: hsl(0,0%,92%);
+    --color-dark-400: hsl(0,0%,88%);
+    --color-dark-500: hsl(0,0%,85%);
+    --color-blue-300: hsl(217, 80%, 55%);
+}
+</style>
+
+
+
+<!-- Christmas Section -->
+<section class="christmas-scene">
+  <div class="container">
+    <div class="message">
+      <div class="star"></div>
+      <h1>HAPPY NEW YEAR!</h1>
+      <div class="star"></div>
+    </div>
+    <div class="hat">
+      <div class="ball"></div>
+      <div class="circle"></div>
+      <div class="body"></div>
+      <div class="base">.</div>
+    </div>
+  </div>
+  <div class="snow1"></div>
+  <div class="snow2"></div>
+  <div class="snow3"></div>
+</section>
+
+<style>
+/* Scope all styles to the christmas-scene section */
+.christmas-scene {
+  position: relative;
+  overflow: hidden;
+  background: #34374c;
+  padding: 50px 0;
+}
+
+.christmas-scene .container {
+  margin: 0 auto;
+  text-align: center;
+  width: 80%;
+}
+
+.christmas-scene .message {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2%;
+}
+
+.christmas-scene .message h1 {
+  font-size: 3rem;
+  color: #f6f6f6;
+}
+
+.christmas-scene .star {
+  -webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  flex: 0 0 8%;
+  background: #95ca3e;
+}
+
+.christmas-scene .hat {
+  width: 12.5rem;
+  margin: 2rem auto 1rem;
+  position: relative;
+  transform: scale(1.5);
+}
+
+.christmas-scene .base {
+  background: #f6f6f6;
+  border-radius: 2rem;
+  color: #f6f6f6;
+  width: 8.8rem;
+  position: relative;
+  left: 1rem;
+  z-index: -1;
+}
+
+.christmas-scene .body {
+  position: relative;
+  left: 1.75rem;
+  width: 7.43rem;
+  height: 5.6rem;
+  background-color: #ee2b47;
+  border-radius: 300% 0% 0%;
+  z-index: -3;
+}
+
+.christmas-scene .ball {
+  width: 2rem;
+  height: 2rem;
+  background: #f6f6f6;
+  border-radius: 50%;
+  position: relative;
+  left: 69%;
+  top: 1rem;
+  z-index: -1;
+}
+
+.christmas-scene .circle {
+  width: 3rem;
+  height: 5.6rem;
+  background: #34374c;
+  border-radius: 50%;
+  top: 25%;
+  left: 65%;
+  position: absolute;
+  z-index: -2;
+}
+
+.christmas-scene .snow1,
+.christmas-scene .snow2,
+.christmas-scene .snow3 {
+  background: url(https://designshack.net/tutorialexamples/letitsnow/snow.png);
+  background-repeat: repeat;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.christmas-scene .snow1 {
+  animation: snowOne 10s infinite linear;
+}
+
+.christmas-scene .snow2 {
+  animation: snowTwo 10s infinite linear;
+  background-size: 30%;
+  filter: blur(1px);
+}
+
+.christmas-scene .snow3 {
+  animation: snowThree 10s infinite linear;
+  background-size: 100%;
+  filter: blur(2px);
+}
+
+@keyframes snowOne {
+  0% { background-position: 0px 0px; }
+  100% { background-position: 100px 650px; }
+}
+@keyframes snowTwo {
+  0% { background-position: 0px -100px; }
+  100% { background-position: 0px 750px; }
+}
+@keyframes snowThree {
+  0% { background-position: 0px 100px; }
+  100% { background-position: 300px 750px; }
+}
+
+/* Optional: Dark Mode Support */
+body.dark-mode .christmas-scene {
+  background: #1b1c2b;
+}
+</style>
+
+
+
+
+
+
+
+
+
+<!-- LEARN DIGITAL SKILLS SECTION -->
+<section class="digital-skills-section section">
+  <div class="container center">
+    <h2 class="title-large">Learn Digital Skills</h2>
+    <p class="text-base" style="margin-bottom: 3rem;">
+      Boost your career with top digital skills from beginner to advanced.
+
+    </p>
+    
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <i class="fas fa-code skill-icon" style="color:#25D366;"></i>
+        <h3>Web Development</h3>
+        <p>HTML, CSS, JavaScript, React, and more to build responsive websites.</p>
+        <a href="https://wa.me/2347040275777?text=Good%20day%20sir/ma.%0AI%20saw%20a%20post%20about%20learning%20digital%20skills.%0AI%20am%20interested%20in%20[skill%20name]%20and%20I%20will%20like%20to%20know%20more%20about%20it%20and%20how%20it%20works.%0AThank%20you%20sir" class="btn-learn">Learn More</a>
+      </div>
+      <div class="skill-card">
+        <i class="fas fa-chart-line skill-icon" style="color:#ff9900;"></i>
+        <h3>Data Analysis</h3>
+        <p>Excel, SQL, Python, and visualization tools to make data-driven decisions.</p>
+        <a href="https://wa.me/2347040275777?text=Good%20day%20sir/ma.%0AI%20saw%20a%20post%20about%20learning%20digital%20skills.%0AI%20am%20interested%20in%20[skill%20name]%20and%20I%20will%20like%20to%20know%20more%20about%20it%20and%20how%20it%20works.%0AThank%20you%20sir" class="btn-learn">Learn More</a>
+      </div>
+      <div class="skill-card">
+        <i class="fas fa-bullhorn skill-icon" style="color:#dc3545;"></i>
+        <h3>Digital Marketing</h3>
+        <p>SEO, Social Media, Email Marketing, and advertising strategies.</p>
+        <a href="https://wa.me/2347040275777?text=Good%20day%20sir/ma.%0AI%20saw%20a%20post%20about%20learning%20digital%20skills.%0AI%20am%20interested%20in%20[skill%20name]%20and%20I%20will%20like%20to%20know%20more%20about%20it%20and%20how%20it%20works.%0AThank%20you%20sir" class="btn-learn">Learn More</a>
+
+      </div>
+      <div class="skill-card">
+        <i class="fas fa-paint-brush skill-icon" style="color:#007bff;"></i>
+        <h3>Graphic Design</h3>
+        <p>Photoshop, Illustrator, and Figma for professional designs.</p>
+         <a href="https://wa.me/2347040275777?text=Good%20day%20sir/ma.%0AI%20saw%20a%20post%20about%20learning%20digital%20skills.%0AI%20am%20interested%20in%20[skill%20name]%20and%20I%20will%20like%20to%20know%20more%20about%20it%20and%20how%20it%20works.%0AThank%20you%20sir" class="btn-learn">Learn More</a>
+
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+/* DIGITAL SKILLS SECTION */
+.digital-skills-section {
+    background: var(--color-dark-400); /* dark mode background */
+    color: var(--color-gray-100);      /* light text for dark mode */
+}
+
+body.light-mode .digital-skills-section {
+    background: #ffffff;               /* white background in light mode */
+    color: #111111;                     /* dark text in light mode */
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.skill-card {
+    background: var(--color-grey-300);
+    border: 1px solid var(--color-grey-400);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(40px);
+    box-shadow: var(--shadow-large);
+}
+
+body.light-mode .skill-card {
+    background: var(--color-grey-100);
+    border-color: var(--color-gray-300);
+}
+
+.skill-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.skill-card h3 {
+    margin: 1rem 0;
+    color: var(--color-blue-300);
+}
+
+.skill-card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+     color: var(--color-grey-100);
+
+    
+
+}
+
+/* Skill Icon */
+.skill-icon {
+    font-size: 2.5rem;
+}
+
+/* Responsive */
+@media screen and (min-width: 768px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .skills-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Learn More Button */
+.skill-card .btn-learn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 1rem;       /* smaller vertical/horizontal padding */
+    font-size: 0.875rem;        /* smaller text */
+    font-weight: 500;
+    border-radius: 2rem;        /* slightly smaller rounded edges */
+    margin-top: 1.5rem;         /* pushes button down inside the card */
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: var(--color-blue-300);
+    box-shadow: var(--shadow-small);
+}
+
+.skill-card .btn-learn:hover {
+    background-color: var(--color-blue-400);
+    box-shadow: var(--shadow-medium);
+}
+
+/* Light mode adjustments */
+body.light-mode .skill-card .btn-learn {
+    background-color: #004aad;
+}
+
+body.light-mode .skill-card .btn-learn:hover {
+    background-color: #0066cc;
+}
+
+</style>
+
+<script>
+// Animate skill cards on scroll (like counters)
+document.addEventListener("DOMContentLoaded", () => {
+    const skillCards = document.querySelectorAll(".skill-card");
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add("show");
+                    }, index * 250);
+                }
+            });
+        },
+        { threshold: 0.3 }
+    );
+
+    skillCards.forEach(card => observer.observe(card));
+});
+</script>
+
+<!-- Testimonial Slider Section -->
+<section id="testimonials" class="testimonial-section">
+  <div class="container center">
+    <h2 class="testimonial-title">What Our Students Say</h2>
+    <p class="testimonial-subtitle">Real feedback from our learners</p>
+
+    <div id="testimonial-slider">
+      <!-- Testimonial Items -->
+      <div class="testimonial-item">
+        <img src="/hub//frontend/assets/emma.jpg" alt="Student 1" class="testimonial-img">
+       
+         <h4>Emmanuel Emmanuel Etim</h4>
+          <p>"At Unitex Hub, we are committed to helping students succeed in their CBT exams. Our platform provides clear lessons, interactive quizzes, and practice tests that simulate real exam conditions."</p>
+      </div>
+
+      <div class="testimonial-item">
+        <img src="/hub/frontend/assets/re.JPG"  alt="Student 4" class="testimonial-img">
+       <h4>Tewogbade Fathia Ayoade</h4>
+                <p>"I believe Unitex Hub will really help me improve my reading and exam skills. The teachers are patient, explain everything clearly, and make learning easier. I’m already feeling more confident and better prepared for my exams!"</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* Testimonial Section */
+.testimonial-section {
+    padding: 4rem 1.5rem;
+    background: #1e1e1e; /* dark background */
+    color: #f1f1f1;
+    text-align: center;
+}
+
+body.light-mode .testimonial-section {
+    background: #ffffff; /* white background in light mode */
+    color: #111111;
+}
+
+.testimonial-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.testimonial-subtitle {
+    font-size: 1rem;
+    color: #bbbbbb;
+    margin-bottom: 2.5rem;
+}
+
+body.light-mode .testimonial-subtitle {
+    color: #555555;
+}
+
+/* Slider container */
+#testimonial-slider {
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Testimonial item */
+.testimonial-item {
+    display: none; /* hide all by default */
+    transition: opacity 0.5s ease-in-out;
+}
+
+.testimonial-item.active {
+    display: block;
+}
+
+.testimonial-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+/* Testimonial text */
+.testimonial-item h4 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--color-blue-300);
+}
+
+body.light-mode .testimonial-item h4 {
+    color: #004aad;
+}
+
+.testimonial-item p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #cccccc;
+}
+
+body.light-mode .testimonial-item p {
+    color: #111111;
+}
+</style>
+
+<script>
+// Testimonial Slider
+let testimonialIndex = 0;
+const testimonialItems = document.querySelectorAll('#testimonial-slider .testimonial-item');
+
+// Show first testimonial
+if (testimonialItems.length > 0) {
+    testimonialItems[0].classList.add('active');
+}
+
+function showNextTestimonial() {
+    testimonialItems[testimonialIndex].classList.remove('active'); // hide current
+    testimonialIndex = (testimonialIndex + 1) % testimonialItems.length; // next index
+    testimonialItems[testimonialIndex].classList.add('active'); // show next
+}
+
+// Rotate testimonials every 5 seconds
+setInterval(showNextTestimonial, 5000);
+</script>
+
+<section class="affiliate-section">
+    <h2 class="affiliate-title">Our Trusted Brand Mentions</h2>
+    <p class="affiliate-subtitle">We draw inspiration and resources from some of the world’s most innovative learning & technology brands.</p>
+
+    <div class="affiliate-slider">
+        <div class="affiliate-track">
+            <div class="brand"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google"></div>
+            <div class="brand"><img src="/hub/frontend/assets/Bot.svg" alt="Udemy"></div>
+            <div class="brand"><img src="https://tse3.mm.bing.net/th/id/OIP.7xcTQ9MzMi0tXAf1clOwsAHaCn?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Notion"></div>
+          
+            <!-- Duplicate for seamless loop -->
+            <div class="brand"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google"></div>
+            <div class="brand"><img src="/hub/frontend/assets/Bot.svg" alt="Udemy"></div>
+            <div class="brand"><img src="https://tse3.mm.bing.net/th/id/OIP.7xcTQ9MzMi0tXAf1clOwsAHaCn?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Notion"></div>
+          
+        </div>
+    </div>
+</section>
+</section>
+
+<script>
+const slider = document.querySelector('.affiliate-track');
+
+slider.addEventListener('mouseover', () => {
+    slider.style.animationPlayState = 'paused';
+});
+
+slider.addEventListener('mouseout', () => {
+    slider.style.animationPlayState = 'running';
+});
+</script>
+<style>
+    /* Affiliate / Brand Mentions Section */
+.affiliate-section {
+    padding: 4rem 1.5rem;
+    background: #1e1e1e; /* dark background */
+    color: #f1f1f1;
+    text-align: center;
+    overflow: hidden;
+}
+
+body.light-mode .affiliate-section {
+    background: #ffffff; /* light background */
+    color: #111111;
+}
+
+.affiliate-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #00aaff; /* optional accent */
+}
+
+body.light-mode .affiliate-title {
+    color: #004aad;
+}
+
+.affiliate-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    color: #cccccc;
+}
+
+body.light-mode .affiliate-subtitle {
+    color: #555555;
+}
+
+/* Slider container */
+.affiliate-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.affiliate-track {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    animation: scroll 20s linear infinite;
+}
+
+.brand {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.brand img {
+    height: 60px;
+    object-fit: contain;
+    filter: brightness(1);
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.brand img:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+/* Infinite scroll keyframes */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .brand img {
+        height: 40px;
+    }
+}
+</style>
+
+
+<!-- ===== Footer Section ===== -->
+<footer class="footer">
+  <div class="container footer-container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">UNITEX HUB</a>
+        <p>Empowering Students to Prepare, Practice, and Excel.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="unitex.hub.about.html">About Us</a></li>
+            <li><a href="unitex.hub.blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="unitex.hub.help.html">Help Center</a></li>
+            <li><a href="unitex.hub.faq.html">FAQs</a></li>
+            <li><a href="unitex.hub,terms.html">Terms & Privacy</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Follow Us</h4>
+          <ul class="social-links">
+            <li><a href="https://web.facebook.com/people/Unitex-Hub-Learn-Smarter/61582938541876/" target="_blank">Facebook</a></li>
+            <li><a href="https://x.com/Unitexhub2025?s=21" target="_blank">Twitter</a></li>
+            <li><a href="https://www.instagram.com/unitexhub2025?igsh=MXFuZHBzOWJtcm5jdw%3D%3D&utm_source=qr" target="_blank">Instagram</a></li>
+            <li><a href="#" target="_blank">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <?= date('Y') ?> UNITEX HUB. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Footer CSS ===== -->
+<style>
+.footer {
+  background-color: var(--color-dark-400);
+  color: var(--color-gray-100);
+  padding: 4rem 0 2rem;
+  font-size: 0.9rem;
+}
+.footer a {
+  color: var(--color-gray-100);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer a:hover {
+  color: var(--color-blue-300);
+}
+.footer-container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.footer-brand {
+  flex: 1 1 20rem;
+}
+.footer-brand p {
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+.footer-links {
+  display: flex;
+  flex: 2 1 40rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.footer-column h4 {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--color-blue-300);
+}
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-column ul li {
+  margin-bottom: 0.5rem;
+}
+.social-links li {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 1rem;
+}
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-links {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .social-links li {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+}
+</style>
+
+
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | Unitex CBT</title>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #f4f6f9;
+    }
+    .sidebar {
+        min-height: 100vh;
+        background: #0d6efd;
+    }
+    .sidebar .nav-link {
+        color: #ffffffcc;
+        font-weight: 500;
+        padding: 12px 16px;
+        border-radius: 6px;
+        margin-bottom: 4px;
+    }
+    .sidebar .nav-link:hover,
+    .sidebar .nav-link.active {
+        background: rgba(255,255,255,0.15);
+        color: #fff;
+    }
+    .sidebar h4 {
+        font-weight: 600;
+    }
+    .content-header {
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .card {
+        border-radius: 12px;
+    }
+</style>
+</head>
+<body>
+
+<script>
+/* Protect admin pages */
+(async function ensureAdmin(){
+    const token = localStorage.getItem('adminToken');
+    if (!token) { window.location.href = '/hub/frontend/index.html'; return; }
+
+    try {
+        const res = await fetch('/hub/api/rooms/list.php', {
+            headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if (!res.ok) throw new Error('Invalid token');
+        const data = await res.json();
+        if (!data || data.status === false) throw new Error('Unauthorized');
+    } catch (err) {
+        console.error('Admin token validation failed', err);
+        localStorage.removeItem('adminToken');
+        window.location.href = '/hub/frontend/index.html';
+    }
+})();
+</script>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Sidebar -->
+        <div class="col-lg-2 col-md-3 sidebar p-3">
+            <h4 class="text-white mb-4">
+                <i class="bi bi-shield-lock"></i> Unitex Admin
+            </h4>
+
+            <nav class="nav flex-column">
+                <a class="nav-link active" href="#">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a class="nav-link" href="courses.html">
+                    <i class="bi bi-book"></i> Manage Courses
+                </a>
+                <a class="nav-link" href="topics.html">
+                    <i class="bi bi-journal-text"></i> Manage Topics
+                </a>
+                <a class="nav-link" href="questions.html">
+                    <i class="bi bi-question-circle"></i> Manage Questions
+                </a>
+                <a class="nav-link" href="question.html">
+                    <i class="bi bi-list-task"></i> Question Bank
+                </a>
+                <a class="nav-link" href="users.html">
+                    <i class="bi bi-people"></i> View Users
+                </a>
+                <a class="nav-link" href="create_rooms.html">
+                    <i class="bi bi-door-open"></i> Create Rooms
+                </a>
+                 <a class="nav-link" href="post.html">
+                    <i class="bi bi-door-open"></i> Create Post
+                </a>
+                <hr class="text-white">
+                <a class="nav-link text-warning" href="/hub/frontend/logout.php">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </a>
+                
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-10 col-md-9 p-4">
+
+            <!-- Header -->
+            <div class="content-header mb-4 pb-2 d-flex justify-content-between align-items-center">
+                <h3 class="mb-0">Admin Dashboard</h3>
+                <span class="badge bg-success">Admin Active</span>
+            </div>
+
+            <!-- Welcome Card -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Welcome, Administrator
+                            </h5>
+                            <p class="card-text text-muted">
+                                Use the navigation panel to manage courses, topics, CBT questions, users, and exam rooms.
+                                All administrative actions are secured and logged.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h6 class="text-muted">Courses</h6>
+                            <h3 id="statCourses">—</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h6 class="text-muted">Questions</h6>
+                            <h3 id="statQuestions">—</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h6 class="text-muted">Users</h6>
+                            <h3 id="statUsers">—</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Admin Logic -->
+<script src="../js/admin.js"></script>
+<script>
+// Fetch and render admin stats
+(async function loadAdminStats(){
+    const token = localStorage.getItem('adminToken');
+    if (!token) return;
+    try {
+        const res = await fetch('/hub/api/stats/overview.php', { headers: { 'Authorization': 'Bearer ' + token } });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data && data.status && data.data) {
+            document.getElementById('statCourses').innerText = data.data.courses;
+            document.getElementById('statQuestions').innerText = data.data.questions;
+            document.getElementById('statUsers').innerText = data.data.users;
+        }
+    } catch (err) { console.error('Failed to load admin stats', err); }
+})();
+</script>
+
+</body>
+</html>
