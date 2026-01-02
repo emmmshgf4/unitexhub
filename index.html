@@ -1098,7 +1098,12 @@ body.light-mode .affiliate-subtitle {
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; <?= date('Y') ?> UNITEX HUB. All Rights Reserved.</p>
+    <p>&copy; <span id="year"></span> UNITEX HUB. All Rights Reserved.</p>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
     </div>
   </div>
 </footer>
@@ -1186,6 +1191,7 @@ body.light-mode .affiliate-subtitle {
 
 </body>
 </html>
+
 
 
 
